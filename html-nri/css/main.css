@@ -14,15 +14,23 @@ a {
 }
 
 /* ========== ヘッダー ========== */
+/* 固定部 */
 .header-container {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 58px;
+  background: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
+  position: fixed;
+  top: 0;
+}
+.header-bk {
+  width: 100%;
+  height: 58px;
 }
   /* ロゴ */
 .header-logo {
