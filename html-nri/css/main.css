@@ -205,10 +205,34 @@ a {
   color: #333333;
 }
 .main-img {
-  margin-bottom: 30px;
   width: 100%;
 }
 
+/* PDFダウンロードボタン */
+.pdf-download {
+  margin: 30px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.pdf-download-btn {
+  display: block;
+  box-sizing: border-box;
+  padding: 1em 0;
+  width: 296px;
+  height: 70px;
+  background: url(../images/icon-pdf.svg) no-repeat right 90px bottom 16px;
+  background-size: 16px 16px;
+  background-color: #005aac;
+  color: #ffffff;
+  line-height: 19px;
+  text-align: center;
+}
+.pdf-download-btn:hover {
+  opacity: 0.8;
+  transition: 0.2s;
+}
+/* リンク */
 
 
 
