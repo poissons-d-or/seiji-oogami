@@ -7,10 +7,18 @@ html, body {
   font-family: 'Noto Sans Japanese', sans-serif;
   font-size: 16px;
 }
-
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
 a {
   color: #0c419a;
   text-decoration: none;
+}
+.sns-icon {
+  width: 24px;
+  height: 24px;
 }
 
 /* ========== ヘッダー ========== */
@@ -159,3 +167,18 @@ a {
   font-weight: 400;
 }
 
+/* SNS シェアボタン */
+.sns-share {
+  float: right;
+  list-style-type: none;
+}
+.sns-share::before {
+  content: "Share";
+  color: #333333;
+  font-size: 12px;
+  font-weight: 400;
+}
+.sns-share li {
+  display: inline;
+  margin: 0 10px;
+}
