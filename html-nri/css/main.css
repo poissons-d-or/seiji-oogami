@@ -2,14 +2,14 @@
 
 /* ========== 共通 ========== */
 html, body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Noto Sans Japanese', sans-serif;
   font-size: 16px;
+  font-family: 'Noto Sans Japanese', sans-serif;
+}
+body, div, p, h1, h2, h3, ul {
+  margin: 0;
+  padding: 0;
 }
 ul {
-  margin: 0;
-  padding: 0;
   list-style-type: none;
 }
 a {
@@ -17,8 +17,14 @@ a {
   text-decoration: none;
 }
 .sns-icon {
+  width: 20px;
+  height: 20px;
+}
+@media screen and (min-width: 768px) {
+  .sns-icon {
   width: 24px;
   height: 24px;
+}
 }
 
 /* ========== ヘッダー ========== */
@@ -201,7 +207,12 @@ a {
 }
 .sns-share li {
   display: inline;
-  margin: 0 10px;
+  margin-left: 5px;
+}
+@media screen and (min-width: 768px) {
+  .sns-share li {
+    margin-left: 18px;
+  }
 }
 
 /* メインリード */
