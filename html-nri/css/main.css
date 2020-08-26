@@ -214,17 +214,22 @@ a {
 /* メインリード */
 .main-container {
   margin: 0 auto 0 auto;
-  padding: 28px 22px;
+  padding: 28px 20px;
   max-width: 800px;
 } 
+@media screen and (min-width: 768px) {
+  .main-container {
+    padding: 28px 0;
+  }
+}
 .main-lead {
   padding: 40px 0;
 }
 .main-lead h2 {
-  padding-left: 1.5em;
-  font-size: 22px;
+  padding-left: 32px;
+  font-size: 18px;
   line-height: 1.5em;
-  background: url(../images/bg-heading-h2.png) no-repeat left 0 top 8px;
+  background: url(../images/bg-heading-h2.png) no-repeat left 0 top 4px;
   background-size: 22px 22px;
 }
 .main-lead p {
@@ -234,6 +239,13 @@ a {
 }
 .main-img {
   width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .main-lead h2 {
+    font-size: 22px;
+    background: url(../images/bg-heading-h2.png) no-repeat left 0 top 8px;
+    background-size: 22px 22px;
+  }
 }
 
 /* PDFダウンロードボタン */
