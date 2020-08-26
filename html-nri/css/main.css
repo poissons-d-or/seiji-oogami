@@ -230,15 +230,10 @@ a {
 }
 
 /* PDFダウンロードボタン */
-.pdf-download {
-  margin: 30px 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
 .pdf-download-btn {
   display: block;
   box-sizing: border-box;
+  margin: 30px auto;
   padding: 1em 0;
   width: 296px;
   height: 70px;
@@ -253,9 +248,16 @@ a {
   opacity: 0.8;
   transition: 0.2s;
 }
+
 /* リンク */
-
-
+.links-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 28px 0;
+}
+.links-container a:hover {
+  text-decoration: underline;
+}
 
 
 
