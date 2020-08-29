@@ -3,16 +3,18 @@
 /* ========== 共通 ========== */
 html, body {
   font-size: 16px;
+  font-weight: 400;
   font-family: 'Noto Sans Japanese', sans-serif;
+  background: #ffffff;
 }
-body, div, p, h1, h2, h3, ul {
+body, div, p, h1, h2, h3, a, ul, ol, li, button {
   margin: 0;
   padding: 0;
 }
 h2, h3, p {
   color: #333333;
 }
-ul {
+ul, ol {
   list-style-type: none;
 }
 a {
@@ -29,36 +31,52 @@ a {
     height: 24px;
   }
 }
+/* スクリーンリーダー用のテキストを非表示にする設定 */
+/* 米政府デジタルサービスチーム18F 「18F Accessibility Guide」より */
+/* https://accessibility.18f.gov/hidden-content/ */
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
 
 /* ========== ヘッダー ========== */
+header {
+  margin-bottom: 22px;
+  width: 100%;
+}
 /* 固定部 */
 .header-container {
-  margin: 0;
-  padding: 0;
   width: 100%;
-  height: 58px;
+  height: 56px;
   background: #ffffff;
+  box-sizing: border-box;
+  padding-left: 37px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
+  align-items: start;
   position: fixed;
   top: 0;
 }
 .header-bk {
   width: 100%;
-  height: 58px;
+  height: 63px;
 }
   /* ロゴ */
 .header-logo {
-  margin: 0.5em 0;
-  padding-left: 36px;
+  box-sizing: border-box;
+  width: 56px;
+  height: 56px;
+  padding: 12px 0;
 }
-.header-logo img {
-  width: 58px;
-  height: 29px;
-  transition: all .4s;
-  fill: #123421;
+.header-logo a {
+  width: 56px;
+  height: 28px;
 }
 /* ナビゲーションメニュー */
 .header-nav {
@@ -98,52 +116,74 @@ a {
 /* ナビゲーションボタン */
 .nav-btn {
   display: block;
-  margin: 0 1em;
-  width: 20px;
-  height: 20px;
+  box-sizing: border-box;
+  width: 56px;
+  height: 40px;
+  padding: 11px 0;
+  text-align: center;
 }
 .nav-btn:hover {
   opacity: 0.5;
 }
 /* ハンバーガーボタン */
-.hamburger {
-  box-sizing: border-box;
+.hamburger-btn {
   position: relative;
-  padding: 0;
-  border: none;
-  background: #000000;
-  width: 20px;
-  height: 2px;
-  cursor: pointer;
-}
-.hamburger::before,
-.hamburger::after {
-  content: '';
-  position: absolute;
-  left: 0;
   display: block;
-  width: 20px;
-  height: 2px;
-  background:#000000;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
 }
-.hamburger::before {
-  top: -8px;
-}
-.hamburger::after {
-  top: 8px;
-}
-.sr-only {
-  border: 0;
-  clip: rect(1px 1px 1px 1px);
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
+.hamburger-line {
   position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 18px;
+  height: 2px;
+  background: #000000;
 }
+.hamburger-line::before,
+.hamburger-line::after {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  content: '';
+}
+.hamburger-line::before {
+  top: -6px;
+}
+.hamburger-line::after {
+  top: 6px;
+}
+.hamburger-btn:hover {
+  opacity: 0.5;
+}
+@media screen and (min-width: 768px) {
+  .hamburger {
+    width: 60px;
+    height: 60px;
+  }
+  .hamburger::before,
+  .hamburger::after {
+    width: 20px;
+  }
+  .hamburger::before {
+    top: -8px;
+  }
+  .hamburger::after {
+    top: 8px;
+  }
+}
+
 /* パンくずリスト */
 .breadcrumb {
   padding-left: 20px;
-  list-style-type: none;
   font-size: 12px;
   font-weight: 400;
   color: #999999;
@@ -154,13 +194,12 @@ a {
 .breadcrumb a {
   padding-right: 12px;
   color: #999999;
-  background: url(../images/icon-chevronRight.svg) no-repeat top 0.3em right 2px;
-  background-size: 5px 10px;
+  background: url(../images/icon-chevronRight.svg) no-repeat top 5px right 1.5px;
+  background-size: 5px 9px;
 }
 /* ========== メインエリア========== */
 /* メインタイトル */
 .main-h1-container {
-  margin-top: 28px;
   width: 100%;
   height: 200px;
   background: url(../images/h1_whats_2.jpg) center;
@@ -168,7 +207,7 @@ a {
 }
 .main-h1 {
   margin: 0 auto;
-  padding: 42px 20px;
+  padding: 40px 20px;
   max-width: 1000px;
   color: #ffffff;
   font-size: 18px;
@@ -197,12 +236,17 @@ a {
 .sns-share {
   text-align: right;
   list-style-type: none;
+  position: relative;
 }
 .sns-share::before {
   content: "Share";
-  color: #333333;
+  color: #666666;
   font-size: 12px;
-  font-weight: 400;
+  font-family: HelveticaNeue;
+  font-weight: 600;
+  position: absolute;
+  top: 3px;
+  right: 87px;
 }
 .sns-share li {
   display: inline;
@@ -217,7 +261,7 @@ a {
 /* メインリード */
 .main-container {
   margin: 0 auto 0 auto;
-  padding: 28px 20px 0 20px;
+  padding: 20px;
   max-width: 800px;
 } 
 @media screen and (min-width: 768px) {
@@ -226,21 +270,25 @@ a {
   }
 }
 .main-lead {
-  padding: 40px 0;
+  padding: 37px 0;
 }
 .main-lead h2 {
+  margin-bottom: 20px;
   padding-left: 32px;
   font-size: 18px;
   line-height: 1.5em;
+  color: #000000;
   background: url(../images/bg-heading-h2.png) no-repeat left 0 top 4px;
   background-size: 22px 22px;
 }
 .main-lead p {
-  margin: 20px 0;
+  margin: 16px 0;
   line-height: 30px;
 }
 .main-img {
+  display: block;
   width: 100%;
+  margin: 20px 0 40px 0;
 }
 @media screen and (min-width: 768px) {
   .main-lead h2 {
@@ -254,13 +302,12 @@ a {
 .pdf-download-btn {
   display: block;
   box-sizing: border-box;
-  margin: 30px auto;
-  padding: 1em 0;
-  width: 296px;
+  margin: 0 auto;
+  padding: 16px 0;
+  width: 303px;
   height: 70px;
-  background: url(../images/icon-pdf.svg) no-repeat right 90px bottom 16px;
-  background-size: 16px 16px;
-  background-color: #005aac;
+  background: url(../images/icon-chevronRight.svg) no-repeat top 35px left 12px, url(../images/icon-pdf.svg) no-repeat right 93px bottom 17px,#005aac;
+  background-size: 6px 10px, 16px 16px;
   color: #ffffff;
   line-height: 19px;
   text-align: center;
