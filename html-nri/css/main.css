@@ -331,11 +331,19 @@ header {
   padding: 16px 0;
   width: 303px;
   height: 70px;
-  background: url(../images/icon-chevronRight.svg) no-repeat top 35px left 12px, url(../images/icon-pdf.svg) no-repeat right 93px bottom 17px,#005aac;
-  background-size: 6px 10px, 16px 16px;
+  background: url(../images/icon-pdf.svg) no-repeat right 93px bottom 17px,#005aac;
+  background-size: 16px 16px;
   color: #ffffff;
-  line-height: 19px;
   text-align: center;
+  position: relative;
+}
+.pdf-download-btn::before {
+  content: "\203A";
+  position: absolute;
+  top: 28px;
+  left: 12px;
+  font-size: 18px;
+
 }
 .pdf-download-btn:hover {
   opacity: 0.8;
