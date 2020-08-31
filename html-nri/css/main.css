@@ -255,7 +255,7 @@ header {
   content: "Share";
   color: #666666;
   font-size: 12px;
-  font-family: HelveticaNeue;
+  font-family: Arial;
   font-weight: 600;
   position: absolute;
   top: 3px;
@@ -269,6 +269,10 @@ header {
   .sns-share li {
     margin-left: 18px;
   }
+  .sns-share::before {
+    top: 6px;
+    right: 139px;
+}
 }
 
 /* メインリード */
