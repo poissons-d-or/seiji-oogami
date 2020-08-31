@@ -220,11 +220,12 @@ header {
 }
 .main-h1 {
   margin: 0 auto;
-  padding: 40px 20px;
+  padding-top: 39px;
+  padding-left: 20px;
   max-width: 1000px;
   color: #ffffff;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;
 }
 .main-h1 span {
   display: none;
@@ -239,7 +240,7 @@ header {
   }
   .main-h1 span {
     display: block;
-    margin-bottom:20px;
+    margin-bottom:24px;
     font-size: 20px;
     font-weight: 400;
   }
