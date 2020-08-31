@@ -49,6 +49,11 @@ header {
   margin-bottom: 22px;
   width: 100%;
 }
+@media screen and (min-width: 768px) {
+  header {
+    margin-bottom: 28px;
+  }
+}
 /* 固定部 */
 .header-container {
   width: 100%;
@@ -59,12 +64,12 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: start;
+  z-index: 1;
   position: fixed;
-  top: 0;
 }
 .header-bk {
   width: 100%;
-  height: 63px;
+  height: 62px;
 }
   /* ロゴ */
 .header-logo {
@@ -124,6 +129,12 @@ header {
 .nav-btn:hover {
   opacity: 0.5;
 }
+@media screen and (min-width: 768px) {
+  .nav-btn {
+    height: 60px;
+    padding: 21px 0;
+  }
+}
 /* ハンバーガーボタン */
 .hamburger-btn {
   position: relative;
@@ -164,19 +175,22 @@ header {
   opacity: 0.5;
 }
 @media screen and (min-width: 768px) {
-  .hamburger {
+  .hamburger-btn {
     width: 60px;
     height: 60px;
   }
-  .hamburger::before,
-  .hamburger::after {
+  .hamburger-line {
     width: 20px;
   }
-  .hamburger::before {
+  .hamburger-line::before,
+  .hamburger-line::after {
+    width: 20px;
+  }
+  .hamburger-line::before {
     top: -8px;
   }
-  .hamburger::after {
-    top: 8px;
+  .hamburger-line::after {
+    top: 9px;
   }
 }
 
