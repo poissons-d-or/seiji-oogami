@@ -3,8 +3,7 @@
 /* ========== 共通 ========== */
 html, body {
   font-size: 16px;
-  font-weight: 400;
-  font-family: 'Noto Sans Japanese', sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
   background: #ffffff;
 }
 body, div, p, h1, h2, h3, a, ul, ol, li, button {
