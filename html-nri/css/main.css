@@ -46,7 +46,7 @@ a {
 
 /* ========== ヘッダー ========== */
 header {
-  margin-bottom: 22px;
+  margin-bottom: 23px;
   width: 100%;
 }
 @media screen and (min-width: 768px) {
@@ -207,8 +207,8 @@ header {
 .breadcrumb a {
   padding-right: 12px;
   color: #999999;
-  background: url(../images/icon-chevronRight.svg) no-repeat top 5px right 1.5px;
-  background-size: 5px 9px;
+  background: url(../images/icon-chevronRight.svg) no-repeat top 4.5px right 1.5px;
+  background-size: 5px 10px;
 }
 /* ========== メインエリア========== */
 /* メインタイトル */
