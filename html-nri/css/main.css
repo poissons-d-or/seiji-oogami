@@ -349,6 +349,13 @@ header {
   opacity: 0.8;
   transition: 0.2s;
 }
+@media screen and (min-width: 768px) {
+  .pdf-download-btn {
+    width: 295px;
+    background: url(../images/icon-pdf.svg) no-repeat right 89px bottom 17px, #005aac;
+    background-size: 16px 16px;
+  }
+}
 
 /* リンク */
 .links-container {
