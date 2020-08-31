@@ -370,7 +370,7 @@ header {
 
 /* 企業情報 */
 .company-info-container {
-  margin: 60px 20px 0 20px;
+  margin: 38px 20px 0 20px;
   border-top: 2px solid #333333;
   padding: 25px 0 0 0;
 }
@@ -379,30 +379,30 @@ header {
   font-size: 20px;
   font-weight: 700;
   color: #333333;
-  margin-bottom: 38px;
+  margin-bottom: 36px;
   border-bottom: 1px dotted #999999;
-  padding-bottom: 56px;
+  padding-bottom: 55px;
 }
 .info-section {
   width: 100%;
-  margin-bottom: 38px;
+  margin-bottom: 36px;
   border-bottom: 1px dotted #999999;
-  padding: 0 0 38px 0;
+  padding: 0 0 39px 0;
 }
 .info-section h3 {
-  margin-bottom: 18px;
+  margin-bottom: 15px;
   font-size: 16px;
   font-weight: 700;
 }
 .info-section li {
-  padding: 13px 0;
+  padding: 13px 0 12px 0;
 }
 .info-section a {
   display: block;
   font-size: 14px;
   font-weight: 400px;
   padding-left: 15px;
-  background: url(../images/icon-chevronRight.svg) no-repeat top 4px left 0;
+  background: url(../images/icon-chevronRight.svg) no-repeat top 3px left 0;
   background-size: 3px 8px;
 }
 .info-section a:hover {
@@ -411,7 +411,10 @@ header {
 @media screen and (min-width: 768px) {
   .company-info-container {
     max-width: 1000px;
-    margin: 125px auto 0 auto;
+    margin: 88px auto 0 auto;
+ }
+ .company-info h2 {
+   padding-bottom: 36px;
  }
 }
 
