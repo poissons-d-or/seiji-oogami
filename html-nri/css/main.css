@@ -284,11 +284,11 @@ header {
 } 
 @media screen and (min-width: 768px) {
   .main-container {
-    padding: 28px 0 0 0;
+    padding: 35px 20px;
   }
 }
 .main-lead {
-  padding: 37px 0;
+  padding: 37px 0 30px 0;
 }
 .main-lead h2 {
   margin-bottom: 20px;
