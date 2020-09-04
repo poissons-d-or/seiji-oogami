@@ -443,22 +443,22 @@ header {
   width: 100%;
   margin-bottom: 36px;
   border-bottom: 1px dotted #999999;
-  padding: 0 0 39px 0;
+  padding-bottom: 38px;
 }
 .info-section h3 {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   font-size: 16px;
   font-weight: 700;
 }
 .info-section li {
-  padding: 13px 0 12px 0;
+  padding: 10px 0 10px 0;
 }
 .info-section a {
   display: block;
   font-size: 14px;
-  font-weight: 400px;
+  line-height: 21px;
   padding-left: 15px;
-  background: url(../images/icon-chevronRight.svg) no-repeat top 3px left 0;
+  background: url(../images/icon-chevronRight.svg) no-repeat top 5px left 0;
   background-size: 3px 8px;
 }
 .info-section a:hover {
@@ -467,11 +467,30 @@ header {
 @media screen and (min-width: 768px) {
   .company-info-container {
     max-width: 1000px;
-    margin: 88px auto 0 auto;
+    margin: 88px auto 66px auto;
  }
  .company-info h2 {
    padding-bottom: 36px;
  }
+  .info-section {
+    padding-bottom: 19px;
+}
+  .info-section ul {
+    margin: 0 -10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+  }
+  .info-section li {
+    box-sizing: border-box;
+    width: 25%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .info-section a {
+    display: block;
+    width: 93%;
+  }
 }
 
 /* リンク 前のページへ戻る */
