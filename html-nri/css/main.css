@@ -273,7 +273,7 @@ header {
   .sns-share::before {
     top: 6px;
     right: 139px;
-}
+  }
 }
 
 /* メインコンテンツ */
@@ -320,7 +320,7 @@ header {
   }
   .main-img {
     margin: 30px 0 40px 0;
-}
+  }
 }
 
 /* PDFダウンロードボタン */
@@ -468,13 +468,13 @@ header {
   .company-info-container {
     max-width: 1000px;
     margin: 88px auto 66px auto;
- }
- .company-info h2 {
+  }
+  .company-info h2 {
    padding-bottom: 36px;
- }
+  }
   .info-section {
     padding-bottom: 19px;
-}
+  }
   .info-section ul {
     margin: 0 -10px;
     display: flex;
@@ -543,6 +543,9 @@ header {
 }
 @media screen and (min-width: 768px) {
   .sns-follow-link {
+    height: 96px;
+    margin-top: 96px;
+    margin-bottom: 0;
     padding-top: 34px;
     padding-bottom: 30px;
     border-top: 2px solid #999999;
@@ -561,9 +564,57 @@ header {
   }
 }
 
-/* aside */
-aside {
+/* ナビゲーションメニュー */
+.nav-menu {
   display: none;
+}
+@media screen and (min-width: 768px) {
+  .nav-menu {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1286px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 7px auto 13px auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  .nav-menu ul {
+    box-sizing: border-box;
+    padding: 38px 0 39px 0;
+    width: 25%;
+  }
+  .nav-menu a {
+    display: block;
+    color: #333333;
+    text-align: left;
+  }
+  .nav-menu a::before {
+    display: inline-block;
+    margin-right: 7px;
+    content:'';
+    background: url(../images/icon-chevronRight.svg) no-repeat;
+    width: 7px;
+    height: 8px;
+  }
+  .nav-menu a:hover {
+    text-decoration: underline;
+  }
+  .nav-bold {
+    padding-top: 7px;
+    padding-bottom: 17px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+  .nav-list {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  
 }
 
 /* フッター */
