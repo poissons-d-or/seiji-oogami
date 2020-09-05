@@ -5,6 +5,7 @@ html, body {
   font-size: 16px;
   font-family: 'Noto Sans JP', sans-serif;
   background: #ffffff;
+  -webkit-font-smoothing: antialiased;
 }
 body, div, p, h1, h2, h3, a, ul, ol, li, button {
   margin: 0;
@@ -398,32 +399,56 @@ header {
   flex-flow: column;
   justify-content: center;
 }
-.strength-list li {
+.strength-list a {
+  display: block;
   box-sizing: border-box;
   border: 1px solid #cccccc;
   margin-bottom: 9px;
   width: 100%;
-}
-.strength-list a {
-  display: block;
-  background: #ffffff;
+  background:#ffffff;
   text-align: center;
-  padding: 16px 0;
+  padding: 15px 0 15px 0;
+  line-height: 19px;
+}
+.strength-list a::before {
+  content: ' ';
+  display: inline-block;
+  background: url(../images/icon-chevronRight.svg) no-repeat;
+  width: 10px;
+  height: 10px;
+  background-size: contain;
+  vertical-align: middle;
 }
 .strength-list a:hover {
-  background: #f4f4f4;
-  transition: 0.2s;
+  transition-duration: 0.3s;
 }
 @media screen and (min-width: 768px) {
   .company-strength {
     height: 240px;
   }
+  .company-strength h3 {
+    margin-bottom: 20px;
+  }
   .strength-list {
-    flex-flow: row;
+    margin: 0 -10px;
+    flex-flow: row wrap;
     justify-content: space-between;
   }
+  .strength-list li {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 33.3%;
+    padding: 0 10px 20px;
+  }
+  .strength-list a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 12px 20px 10px 20px;
+  }
 }
-
 /* 企業情報 */
 .company-info-container {
   margin: 38px 20px 0 20px;
@@ -495,6 +520,11 @@ header {
 
 
 /* リンク 前のページへ戻る */
+.page-back-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
 .page-back {
   margin-left: 20px;
   padding-left: 18px;
@@ -621,6 +651,7 @@ header {
 footer {
   width: 100%;
   height: 380px;
+  box-sizing: border-box;
 }
 .footer-nav {
   margin-bottom: 7px;
@@ -647,4 +678,40 @@ small {
   font-size: 10px;
   line-height: 19px;
   color: #333333;
+}
+@media screen and (min-width: 768px) {
+  footer {
+    border-top: solid 1px #cccccc;
+    padding-top: 68px;
+    height: 239px;
+  }
+  .footer-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .footer-nav {
+    border: none;
+    margin-bottom: 17px;
+  }
+  .footer-nav li {
+    margin-right: 8.4px;
+    display: inline-block;
+  }
+  .footer-nav li::before {
+    content: '｜';
+    font-size: 12px;
+    margin-right: 12px;
+    color: #333333;
+  }
+  .footer-nav li:first-child::before {
+    content: none;
+  }
+  .footer-nav a {
+    display: inline;
+    border: none;
+    padding: 0;
+  }
+  small {
+    margin-left: 0;
+  }
 }
