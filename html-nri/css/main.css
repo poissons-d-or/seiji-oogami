@@ -113,6 +113,7 @@ header {
     align-items: flex-start;
     box-sizing: border-box;
     height: 56px;
+    border-bottom: 2px solid transparent;
     padding-top: 15px;
     color: #000000;
     font-size: 14px;
@@ -428,6 +429,9 @@ header {
   line-height: 19px;
 }
 .strength-list a:hover {
+  background: url(../images/icon-chevronRight.svg) no-repeat, #f4f4f4;
+  background-position: 8px center;
+  background-size: 7px 10px;
   transition-duration: 0.3s;
 }
 @media screen and (min-width: 768px) {
