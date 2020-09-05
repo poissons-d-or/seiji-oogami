@@ -329,12 +329,12 @@ header {
   display: block;
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 16px 0;
-  width: 303px;
+  padding: 16px;
+  width: 304px;
   height: 70px;
-  background: url(../images/icon-pdf.svg) no-repeat right 93px bottom 17px,#005aac;
-  background-size: 16px 16px;
+  background: #005aac;
   color: #ffffff;
+  line-height: 19px;
   text-align: center;
   position: relative;
 }
@@ -342,9 +342,18 @@ header {
   content: "\203A";
   position: absolute;
   top: 28px;
-  left: 12px;
+  left: 13px;
   font-size: 18px;
-
+}
+.pdf-download-btn::after {
+  content: '';
+  display: inline-block;
+  background: url(../images/icon-pdf.svg) no-repeat;
+  background-size: contain;
+  width: 16px;
+  height: 18px;
+  margin-left: 11.5px;
+  vertical-align: middle;
 }
 .pdf-download-btn:hover {
   opacity: 0.8;
@@ -352,9 +361,7 @@ header {
 }
 @media screen and (min-width: 768px) {
   .pdf-download-btn {
-    width: 295px;
-    background: url(../images/icon-pdf.svg) no-repeat right 89px bottom 17px, #005aac;
-    background-size: 16px 16px;
+    width: 296px;
   }
 }
 
