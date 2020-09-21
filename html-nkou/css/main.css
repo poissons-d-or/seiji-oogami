@@ -41,7 +41,6 @@ header {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
-  /* align-items: center; */
 }
 /* トップナビゲーションバー */
 .top-nav {
@@ -52,6 +51,8 @@ header {
   font-size: 11px;
   letter-spacing: 0.4pt;
   line-height:32px;
+  position: relative;
+  z-index: 2;
 }
 .top-nav p {
   height: 32px;
@@ -104,6 +105,9 @@ header {
 .header-main {
   height: 93px;
   padding: 20px 0;
+  background: #ffffff;
+  position: relative;
+  z-index: 2;
 }
 .header-logo {
   width: 211px;
@@ -146,10 +150,14 @@ header {
 
 /* グローバルナビ */
 .global-nav {
-  height: 60px;
+  height: 50px;
   width: 100%;
+  margin-bottom: 10px;
   font-family: 'AxisStd-Regular';
   font-size: 15px;
+  background: #ffffff;
+  position: relative;
+  z-index: 2;
 }
 .nav-list {
   display: flex;
@@ -182,19 +190,6 @@ header {
   left: 50%;
   transform: translateX(-50%);
   clip: rect(10px 76px 20px 0px);
-}
-.page-now::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  bottom: -25px;
-  left: 0;
-  width: 0px;
-  height: 0px;
-  margin: auto;
-  border-style: solid;
-  border-color:  transparent transparent #181836 transparent;
-  border-width: 0 5px 8px 5px;
 }
 .nav-link a {
   display: block;
@@ -293,7 +288,7 @@ header {
   font-family: 'AxisStd-Regular', sans-serif;
   position: fixed;
   top: 0;
-  left: 0;
+  z-index: 1;
 }
 .header-fixed-logo {
   width: 170px;
@@ -334,6 +329,19 @@ header {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  position: relative;
+}
+.local-nav-list::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -7px;
+  left: 75px;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-color:  transparent transparent #1f286f transparent;
+  border-width: 0 5px 7px 5px;
 }
 .local-nav-list li {
   padding: 0 10px 0 16px;
