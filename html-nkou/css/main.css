@@ -14,12 +14,11 @@ html, body {
   font-family: 'AxisStd-Light', sans-serif;
   background: #ffffff;
 }
-body, div, p, h1, h2, h3, a, ul, ol, li {
+body, div, p, h1, h2, h3, h4, a, ul, ol, li {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-h2, h3, p {
+  font-weight: 400;
   color: #272727;
 }
 ul, ol {
@@ -30,6 +29,7 @@ a {
 }
 
 /* ========== ヘッダー ========== */
+/* ヘッダー共通 */
 header {
   width: 100%;
   background: #ffffff;
@@ -42,6 +42,7 @@ header {
   flex-flow: row;
   justify-content: space-between;
 }
+
 /* トップナビゲーションバー */
 .top-nav {
   width: 100%;
@@ -133,7 +134,6 @@ header {
   padding-left: 31px;
   font-family: 'AxisStd-Regular', sans-serif;
   font-size: 11px;
-  font-weight: 400;
   color: #8d959c;
   letter-spacing: 0.4pt;
 }
@@ -197,7 +197,6 @@ header {
   height: 31px;
   text-align: center;
   color: #272727;
-  font-weight: 400;
   position: relative;
 }
 .nav-link a:hover {
@@ -313,7 +312,6 @@ header {
   margin-left: 10px;
   font-size: 11px;
   line-height: 15px;
-  font-weight: 400;
   letter-spacing: 0.4pt;
   color: #8d959c;
 }
@@ -367,7 +365,7 @@ header {
   transition-duration: 0.2s;
 }
 
-/* ========== メイン ========== */
+/* ========== メインタイトル〜パンくずリスト ========== */
 /* メインタイトル */
 .main-heading-container {
   width: 100%;
@@ -380,7 +378,6 @@ header {
   margin: 0 auto;
   font-size: 52px;
   line-height: 94px;
-  font-weight: 400;
   color: #ffffff;
   text-align: center;
   letter-spacing: 0.3em;
@@ -406,13 +403,12 @@ header {
   width: 100%;
   max-width: 1040px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 20px 0 18px 0;
 }
 .breadcrumb li {
   display: inline;
   font-size: 14px;
   line-height: 25px;
-  font-weight: 400;
   letter-spacing: 0.6px;
 }
 .breadcrumb li:last-child::before {
@@ -426,5 +422,168 @@ header {
 .breadcrumb a:hover {
   text-decoration: underline;
 }
+
+/* ========== メインコンテンツ ========== */
+/* 共通 */
+.main-container {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 10px 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+.content-wrapper {
+  width: 100%;
+  padding: 18px 0;
+  margin-bottom: 44px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+/* N高教育方針リード文 */
+.nkou-policy {
+  border-top: 1px solid #e1e1e1;
+}
+.nkou-policy h2 {
+  font-family: 'AxisStd-Light', sans-serif;
+  font-size: 33px;
+  line-height: 59px;
+  letter-spacing: 0.2em;
+  text-align: center;
+  margin: 70px 0;
+}
+.nkou-policy p {
+  font-family: 'AxisStd-Regular';
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 0.6px;
+}
+.lead-heading {
+  padding-bottom: 18px;
+  font-family: 'AxisStd-Regular', sans-serif;
+  font-size: 22px;
+  line-height: 39px;
+  text-align: center;
+  letter-spacing: 0.6px;
+  background: url(../images/line01_black01.png) no-repeat center bottom 0;
+  background-size: 200px 1px;
+}
+.main-lead {
+  margin-bottom: 44px;
+}
+.main-lead p {
+  padding: 25px 0;
+  width: 640px;
+  margin: 0 auto;
+}
+
+/* 教育方針 */
+.content-heading {
+  width: 100%;
+  padding-bottom: 10px;
+  font-family: 'AxisStd-Regular', sans-serif;
+  font-size: 26px;
+  line-height: 47px;
+  letter-spacing: 0.6px;
+  background: url(../images/line02_black01.png) no-repeat bottom;
+}
+.policy-list {
+  width: auto;
+}
+.policy-list li {
+  height: 53px;
+  margin: 30px 0;
+  font-size: 19px;
+  line-height: 53px;
+  letter-spacing: 0.6px;
+}
+.policy-list span {
+  display: inline-block;
+  border-right: 1px solid #272727;
+  padding-right: 15px;
+  margin-right: 15px;
+  font-family: 'AxisStd-Regular';
+  font-size: 24px;
+  line-height: 53px;
+  vertical-align: middle;
+}
+.policy-image {
+  width: 60%;
+  height: auto;
+  margin: 22px -15% 0 0;
+}
+
+/* N STANDARDSボタン */
+.n-standards-btn {
+  display: block;
+  width: 66%;
+  margin: 18px auto 79px auto;
+  border: 1px solid #dddddd;
+  padding: 30px 40px;
+  background:
+    url(../images/icon_arrow01_right_blue02.png) no-repeat left 220px bottom 90px,
+    url(../images/text_read_more01_black01.png) no-repeat left 236px bottom 86px, #f7f7f7;
+  background-size: 6px 10px, 70px 13px;
+}
+.n-standards-btn-wrapper {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.n-standards-btn img {
+  width: 160px;
+  height: 265px;
+}
+.n-standards-btn p {
+  margin-left: 20px;
+  text-align: justify;
+  position: relative;
+}
+.n-standards-btn p span{
+  display: block;
+  padding-top: 5px;
+  margin-bottom: 16px;
+  font-size: 22px;
+}
+/* N高の魅力 */
+.nkou-appeal {
+  margin-bottom: 62px;
+}
+.text-wrapper {
+  width: 47%;
+}
+.text-wrapper h4 {
+  border-bottom: 1px solid #1c1c1c;
+  padding-bottom: 25px;
+  margin-bottom: 10px;
+  font-family: 'AxisStd-Regular', sans-serif;
+  font-size: 25px;
+  line-height: 45px;
+  letter-spacing: 0.6px;
+}
+.program-list {
+  margin-top: 19px;
+  font-family: 'AxisStd-Regular';
+  font-size: 12px;
+  line-height: 22px;
+  letter-spacing: 0.6px;
+}
+
+/* メインコンテンツ共通 */
+
+.main-content h2 {
+  font-family: 'AxisStd-Regular', sans-serif;
+  font-size: 33px;
+  line-height: 59px;
+  text-align: center;
+}
+
+
+
+
+
 
 /* ========== フッター ========== */
