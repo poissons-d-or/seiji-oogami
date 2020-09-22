@@ -368,6 +368,7 @@ header {
 }
 
 /* ========== メイン ========== */
+/* メインタイトル */
 .main-heading-container {
   width: 100%;
   height: 530px;
@@ -400,5 +401,30 @@ header {
   transform: translateX(-50%);
 }
 
+/* パンくずリスト */
+.breadcrumb {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+.breadcrumb li {
+  display: inline;
+  font-size: 14px;
+  line-height: 25px;
+  font-weight: 400;
+  letter-spacing: 0.6px;
+}
+.breadcrumb li:last-child::before {
+  display: inline-block;
+  content: '>';
+  margin-right: 8px;
+}
+.breadcrumb a {  
+  color: #36538d;
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
 
 /* ========== フッター ========== */
