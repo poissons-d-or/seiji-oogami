@@ -429,7 +429,7 @@ header {
   width: 100%;
   max-width: 1040px;
   margin: 0 auto;
-  padding: 10px 0;
+  padding: 70px 0 48px 0;
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -441,6 +441,7 @@ header {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
+  align-items: flex-start;
 }
 /* N高教育方針リード文 */
 .nkou-policy {
@@ -452,7 +453,7 @@ header {
   line-height: 59px;
   letter-spacing: 0.2em;
   text-align: center;
-  margin: 70px 0;
+  margin: 10px 0 70px 0;
 }
 .nkou-policy p {
   font-family: 'AxisStd-Regular';
@@ -548,6 +549,9 @@ header {
   margin-bottom: 16px;
   font-size: 22px;
 }
+.n-standards-btn:hover img {
+  opacity: 0.7;
+}
 /* N高の魅力 */
 .nkou-appeal {
   margin-bottom: 62px;
@@ -573,13 +577,98 @@ header {
 }
 
 /* メインコンテンツ共通 */
-
+.main-content, 
+.messages-and-guidance {
+  border-top: 1px solid #e1e1e1;
+}
+.back-gray {
+  background: #f7f7f7;
+}
+.main-content a {
+  display: block;
+  width: 28%;
+  padding-top: 3px;
+  text-align: justify;
+  position: relative;
+  background: url(../images/icon_arrow01_right_blue02.png) no-repeat left 0 bottom 3px;
+  background-size: 6px 10px;
+}
+.read-more {
+  display: block;
+  width: 70px;
+  height: auto;
+  margin: 35px 0 0 16px;
+}
+.main-content a:hover {
+  opacity: 0.6;
+  transition-duration: 0.2s;
+}
 .main-content h2 {
   font-family: 'AxisStd-Regular', sans-serif;
+  margin-bottom: 19px;
+  padding-bottom: 11px;
   font-size: 33px;
   line-height: 59px;
+  letter-spacing: 0.6px;
   text-align: center;
+  background: url(../images/line01_black01.png) no-repeat center bottom 1px;
+  background-size: 200px 1px;
 }
+.main-content h3 {
+  font-family: 'AxisStd-Regular', sans-serif;
+  margin: 20px 0 9px 0;
+  padding-bottom: 11px;
+  font-size: 22px;
+  line-height: 39px;
+  letter-spacing: 0.6px;
+}
+.main-content h3 span {
+  display: inline;
+  font-size: 13px;
+}
+.main-content p {
+  font-family: 'AxisStd-Regular', sans-serif;
+  font-size: 16px; 
+  line-height: 28px;
+  letter-spacing: 0.6px;
+}
+
+/* Basic Program、Advanced Program */
+.program-explanation {
+  text-align: center;
+  margin-bottom: 42px;
+}
+.basic-program-wrapper {
+  padding: 8px 10px 3px 10px;
+  width: 99px;
+  height: 25px;
+  background: #1c1c1c;
+}
+.advanced-program-wrapper {
+  padding: 8px 10px 3px 10px;
+  width: 123px;
+  height: 25px;
+  background: #1c1c1c;
+}
+.basic-program-wrapper img,
+.advanced-program-wrapper img {
+  height: 14px;
+  width: auto;
+}
+.main-content .notice-small {
+  margin-top: 20px;
+  font-size: 11px;
+  line-height: 20px;
+}
+.main-content .notice-large {
+  margin: -10px 0 20px 0;
+  font-size: 13px;
+  line-height: 23px;
+}
+
+
+
+
 
 
 
