@@ -36,8 +36,9 @@ header {
 }
 .header-container {
   width: 100%;
-  max-width: 1040px;
+  max-width: 1060px;
   margin: 0 auto;
+  padding: 0 10px;
   display: flex;
   flex-flow: row;
   justify-content: space-between;
@@ -404,9 +405,9 @@ header {
 /* パンくずリスト */
 .breadcrumb {
   width: 100%;
-  max-width: 1040px;
+  max-width: 1060px;
   margin: 0 auto;
-  padding: 20px 0 18px 0;
+  padding: 20px 10px 18px 10px;
 }
 .breadcrumb li {
   display: inline;
@@ -430,9 +431,9 @@ header {
 /* 共通 */
 .main-container {
   width: 100%;
-  max-width: 1040px;
+  max-width: 1060px;
   margin: 0 auto;
-  padding: 70px 0 48px 0;
+  padding: 70px 10px 48px 10px;
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -675,9 +676,9 @@ header {
 }
 .link-list {
   width: 100%;
-  max-width: 1040px;
+  max-width: 1060px;
   margin: 0 auto;
-  padding: 70px 0 50px 0;
+  padding: 70px 10px 50px 10px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -689,7 +690,9 @@ header {
   background: url(../images/bg_diagonal01_black01.png);
 }
 .link-list a {
-  display: block;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
   height: 100%;
   padding: 10px 50px 10px 29px;
   background: #ffffff;
