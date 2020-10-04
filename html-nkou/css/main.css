@@ -35,8 +35,7 @@ header {
   background: #ffffff;
 }
 .header-container {
-  width: 100%;
-  max-width: 1060px;
+  width: 1060px;
   margin: 0 auto;
   padding: 0 10px;
   display: flex;
@@ -430,8 +429,7 @@ header {
 /* ========== メインコンテンツ ========== */
 /* 共通 */
 .main-container {
-  width: 100%;
-  max-width: 1060px;
+  width: 1060px;
   margin: 0 auto;
   padding: 70px 10px 48px 10px;
   display: flex;
@@ -528,9 +526,8 @@ header {
   border: 1px solid #dddddd;
   padding: 30px 40px;
   background:
-    url(../images/icon_arrow01_right_blue02.png) no-repeat left 220px bottom 90px,
-    url(../images/text_read_more01_black01.png) no-repeat left 236px bottom 86px, #f7f7f7;
-  background-size: 6px 10px, 70px 13px;
+    url(../images/icon_arrow01_right_blue02.png) no-repeat left 220px bottom 90px, #f7f7f7;
+  background-size: 6px 10px;
 }
 .n-standards-btn-wrapper {
   display: flex;
@@ -538,16 +535,19 @@ header {
   justify-content: space-between;
   align-items: flex-start;
 }
-.n-standards-btn img {
+.n-standards {
   width: 160px;
   height: 265px;
+}
+.n-standards-btn .read-more {
+  margin: 35px 0 0 36px;
 }
 .n-standards-btn p {
   margin-left: 20px;
   text-align: justify;
   position: relative;
 }
-.n-standards-btn p span{
+.n-standards-btn p span {
   display: block;
   padding-top: 5px;
   margin-bottom: 16px;
@@ -555,6 +555,7 @@ header {
 }
 .n-standards-btn:hover img {
   opacity: 0.7;
+  transition-duration: 0.2s;
 }
 /* N高の魅力 */
 .nkou-appeal {
@@ -588,10 +589,15 @@ header {
 .back-gray {
   background: #f7f7f7;
 }
+.main-content .main-container {
+  padding-bottom: 18px;
+}
+.main-content .content-wrapper {
+  padding-bottom: 49px;
+}
 .main-content a {
   display: block;
   width: 28%;
-  padding-top: 3px;
   text-align: justify;
   position: relative;
   background: url(../images/icon_arrow01_right_blue02.png) no-repeat left 0 bottom 3px;
@@ -609,7 +615,7 @@ header {
 }
 .main-content h2 {
   font-family: 'AxisStd-Regular', sans-serif;
-  margin-bottom: 19px;
+  margin-bottom: 62px;
   padding-bottom: 11px;
   font-size: 33px;
   line-height: 59px;
@@ -620,7 +626,7 @@ header {
 }
 .main-content h3 {
   font-family: 'AxisStd-Regular', sans-serif;
-  margin: 20px 0 9px 0;
+  margin-bottom: 9px;
   padding-bottom: 11px;
   font-size: 22px;
   line-height: 39px;
@@ -636,19 +642,25 @@ header {
   line-height: 28px;
   letter-spacing: 0.6px;
 }
-
+.content-image {
+  width: 69.2%;
+  height: auto;
+}
 /* Basic Program、Advanced Program */
 .program-explanation {
   text-align: center;
+  margin-top: -43px;
   margin-bottom: 42px;
 }
 .basic-program-wrapper {
+  margin: 3px 0 20px 0;
   padding: 8px 10px 3px 10px;
   width: 99px;
   height: 25px;
   background: #1c1c1c;
 }
 .advanced-program-wrapper {
+  margin: 3px 0 20px 0;
   padding: 8px 10px 3px 10px;
   width: 123px;
   height: 25px;
@@ -674,8 +686,9 @@ header {
   display: block;
   width: 100%;
   height: 300px;
+  margin-top: 118px;
   margin-left: -10px;
-  margin-bottom: 55px;
+  margin-bottom: 82px;
 }
 /* 「N高生からのメッセージ」などのボタン */
 .messages-and-guidance {
@@ -723,8 +736,7 @@ footer {
   margin-top: 80px;
 }
 .footer-container {
-  width: 100%;
-  max-width: 1060px;
+  width: 1060px;
   margin: 0 auto;
   padding: 0 10px;
 }
@@ -940,7 +952,7 @@ footer {
   background: #f8f8f8;
 }
 .footer-nav-wrapper {
-  margin-bottom: 37px;
+  margin-bottom: 40px;
   display: flex;
   flex-flow: row;
   justify-content: space-between;
@@ -974,6 +986,10 @@ footer {
 .page-top-btn {
   display: block;
   margin-right: 48px;
+}
+.page-top-btn:hover {
+  opacity: 0.7;
+  transition-duration: 0.2s;
 }
 
 /* フッターグローバルナビ カラム部 */
@@ -1024,6 +1040,9 @@ footer {
   display: block;
   font-size: 12px;
   line-height: 13px;
+}
+.with-top-margin {
+  margin-top: 30px;
 }
 
 /* 「個人情報保護方針」「学校法人概要」 */
@@ -1118,4 +1137,3 @@ footer {
 .footer-bottom a:hover {
   text-decoration: underline;
 }
-
