@@ -685,7 +685,7 @@ header {
   width: 100%;
   max-width: 1060px;
   margin: 0 auto;
-  padding: 70px 10px 50px 10px;
+  padding: 70px 10px 51px 10px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -718,5 +718,404 @@ header {
   transition-duration: 0.2s;
 }
 
-
 /* ========== フッター ========== */
+footer {
+  margin-top: 80px;
+}
+.footer-container {
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+/* N高資料請求、電話番号、問合せボタンなど */
+.footer-contacts {
+  padding: 35px 0 20px 0;
+  font-family: 'AxisStd-Regular', sans-serif;
+  background: url(../images/footer02_bg01.png);
+}
+.nkou-details-heading {
+  font-size: 20px;
+  line-height: 28px;
+  color: #ffffff;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+.footer-contacts-wrapper {
+  margin-top: 30px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
+.footer-contacts-btn {
+  margin-right: 42px;
+}
+.footer-contacts-btn li {
+  width: 258px;
+  height: 53px;
+  margin-bottom: 14px;
+}
+.footer-contacts-btn li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url(../images/icon_arrow01_right_black01.png) no-repeat top 50% right 16px,#ffffff;
+  background-size: 7px 13px;
+  font-size: 18px;
+  line-height: 53px;
+  color: #1c1c1c;
+  text-align: center;
+  letter-spacing: 0.6px;
+  position: relative;
+}
+.footer-contacts-btn li a:hover {
+  opacity: 0.7;
+  transition-duration: 0.2s;
+}
+.document-request::before {
+  display: inline-block;
+  content: '';
+  width: 29px;
+  height: 28px;
+  background: url(../images/icon_book01_black01.png) no-repeat;
+  background-size: contain;
+  position: absolute;
+  top: 28px;
+  left: 18px;
+  transform: translateY(-50%);
+}
+.orientation-meeting::before {
+  display: inline-block;
+  content: '';
+  width: 29px;
+  height: 28px;
+  background: url(../images/icon_balloon01_black01.png) no-repeat;
+  background-size: contain;
+  position: absolute;
+  top: 28px;
+  left: 18px;
+  transform: translateY(-50%);
+}
+.footer-contact-links li {
+  margin: 10px 0;
+}
+.footer-telephone a {
+  display: block;
+  width: 250px;
+  height: 29px;
+}
+.footer-telephone a:hover {
+  opacity: 0.7;
+  transition-duration: 0.2s;
+}
+.footer-telephone img {
+  width: 100%;
+  height: 100%;
+}
+.footer-telephone p {
+  padding-top: 8px;
+  margin: auto;
+  width: 209px;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 17px;
+  letter-spacing: 0.4pt;
+  text-align: right;
+}
+.footer-web-contact {
+  display: block;
+  width: 212px;
+  height: 40px;
+  margin-top: 17px;
+  margin-left: auto;
+  background: url(../images/icon_arrow01_right_white01.png) no-repeat top 50% right 13px;
+  background-size: 5px 9px;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 39px;
+  text-align: center;
+  letter-spacing: 0.4pt;
+}
+.footer-web-contact:hover {
+  text-decoration: underline;
+}
+
+/* 「N高ニュース」「N高ブログ」「N中等部」「N Code Labo」ボタン */
+.footer-links {
+  padding-bottom: 70px;
+}
+.nkou-media {
+  width: 100%;
+  padding: 40px 0;
+  border-bottom: 1px solid #e1e1e1;
+  display: flex;
+  justify-content: center;
+}
+.nkou-media li {
+  padding: 0 16.5px;
+}
+.nkou-media a {
+  display: block;
+  width: 258px;
+  height: 44px;
+  border: 1px solid #272727;
+  background: url(../images/icon_arrow01_right_black01.png) no-repeat top 50% right 14px;
+  background-size: 6px 10px;
+  color: #000000;
+  font-family: 'AxisStd-Regular', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 42px;
+  letter-spacing: 0.6px;
+  text-align: center;
+}
+.nkou-media a:hover {
+  color: #ffffff;
+  background: url(../images/icon_arrow01_right_white01.png) no-repeat top 50% right 14px, #272727;
+  background-size: 6px 10px;
+  transition-duration: 0.2s;
+}
+.other-schools-lead {
+  margin: 40px 0 30px 0; 
+  color: #000000;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.4pt;
+  text-align: center;
+}
+.other-schools {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.other-schools li {
+  width: 50%;
+  padding: 6px;
+  margin: 0 16.5px;
+  background: url(../images/bg_diagonal01_black01.png);
+}
+.other-schools li a {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  background: url(../images/icon_arrow01_right_black01.png) no-repeat top 50% right 22px, #ffffff;
+  background-size: 6px 10px;
+  color: #000000;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.5pt;
+  text-align: center;
+}
+.other-schools li a:hover {
+  opacity: 0.7;
+  transition-duration: 0.2s;
+}
+.n-junior-link {
+  padding: 17px 44px 18px 28px;
+}
+.n-junior-link img {
+  width: 134px;
+  height: 35px;
+  margin-bottom: 10px;
+}
+.n-code-link {
+  padding: 12px 44px 13px 28px;
+}
+.n-code-link img {
+  width: 173px;
+  height: 45px;
+  margin-bottom: 10px;
+}
+
+/* フッターグローバルナビ 横並び部*/
+.footer-nav {
+  width: 100%;
+  padding-top: 38px;
+  background: #f8f8f8;
+}
+.footer-nav-wrapper {
+  margin-bottom: 37px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.members-category {
+  padding-top: 21px;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+}
+.members-category li {
+  border-left: 1px solid #989cbb;
+  padding: 0 12px;
+}
+.members-category li:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+.members-category a {
+  font-family: 'AxisStd-Regular', sans-serif;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.4pt;
+  color: #000066;
+}
+.members-category a:hover {
+  text-decoration: underline;
+}
+.page-top-btn {
+  display: block;
+  margin-right: 48px;
+}
+
+/* フッターグローバルナビ カラム部 */
+.footer-nav .nav-column {
+  width: 18.5%;
+}
+.with-bottom-line {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #c9c9c9;
+  margin-bottom: 23px;
+}
+.footer-nav .nav-column li {
+  margin: 9px 0;
+}
+.footer-nav .nav-column a {
+  letter-spacing: 0.4pt;
+  font-weight: 700;
+}
+.footer-nav .nav-column a:hover {
+  text-decoration: underline;
+}
+.nav-heading a {
+  display: block;
+  margin-bottom: 11px;
+  font-family: 'AxisStd-Regular', sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+  color: #000066;
+}
+.with-ruby-column {
+  margin-top: -16px;
+}
+.with-ruby::before {
+  display: block;
+  content: 'アドバンスト プログラム';
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 11px;
+  margin-bottom: 5px;
+}
+.nav-column li a {
+  font-family: 'AxisStd-Light', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+.nav-column li a span {
+  display: block;
+  font-size: 12px;
+  line-height: 13px;
+}
+
+/* 「個人情報保護方針」「学校法人概要」 */
+.footer-nav-bottom {
+  border-top: 1px solid #c9c9c9;
+  padding: 22px 0 27px 0;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+.footer-nav-bottom ul {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+.privacy-policy {
+  justify-content: flex-start;
+}
+.privacy-policy li {
+  margin-right: 15px;
+}
+.privacy-policy a {
+  font-family: 'AxisStd-Regular', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.4pt;
+}
+.privacy-policy a:hover {
+  text-decoration: underline;
+}
+
+/* SNSリンク */
+.footer-sns-links {
+  justify-content: flex-end;
+}
+.footer-sns-links li {
+  border-right: 1px solid #dddddd;
+}
+.footer-sns-links li:last-child {
+  border-right: none;
+}
+.footer-sns-links li a {
+  height: 48px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px 0 12px;
+  position: relative;
+}
+.footer-sns-links li a::after {
+  display: inline;
+  content: '＞';
+  color: #aaaaaa;
+  font-size: 10px;
+  position: absolute;
+  top: 16px;
+  right: 7px;
+}
+.footer-sns-links a img {
+  height: 27px;
+  margin-right: 5px;
+}
+.footer-sns-links a p {
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.4pt;
+}
+.footer-sns-links a:hover {
+  background: #ebebeb;
+  transition-duration: 0.2s;
+}
+
+/* コピーライト部 */
+.footer-bottom {
+  padding: 18px 0 16px 0;
+  background: #1a1a1a;
+}
+.footer-bottom .footer-container {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-bottom a, small {
+  font-family: 'AxisStd-Regular', sans-serif;
+  font-size: 11px;
+  line-height: 15px;
+  color: #999999;
+  letter-spacing: 0.4pt;
+}
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
