@@ -143,4 +143,7 @@ li {
 	font-size: 80%;
 	color: #999;
 }
+.msg .day .like-button {
+	text-decoration: none;
+}
 

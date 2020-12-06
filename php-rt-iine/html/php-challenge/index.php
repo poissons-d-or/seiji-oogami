@@ -51,6 +51,14 @@ $posts = $db->prepare('SELECT m.name, m.picture, p.* FROM members m, posts p WHE
 $posts->bindParam(1, $start, PDO::PARAM_INT);
 $posts->execute();
 
+// *****ここから課題で追加***** いいね情報を取得する
+$likes = $db->prepare('SELECT liked_post_id FROM likes WHERE member_id=?');
+$likes->execute([$member['id']]);
+while($likedPost=$likes->fetch()){
+  $myLikes[]=$likedPost['liked_post_id'];
+}
+// *****ここまで課題で追加*****
+
 // 返信の場合
 if (isset($_REQUEST['res'])) {
   $response = $db->prepare('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id AND p.id=?');
@@ -118,6 +126,26 @@ function makeLink($value)
             <?php if ($_SESSION['id'] === $post['member_id']) : ?>
               [<a href="delete.php?id=<?php echo h($post['id']); ?>" style="color: #F33;">削除</a>]
             <?php endif; ?>
+            <!-- *****ここから課題で追加***** -->
+            <a class="like-button" href="index.php?like=<?php echo h($post['id']); ?>">
+            <?php
+            $myLikeCnt=0;
+            foreach($myLikes as $myLike){
+              if($myLike === $post['id']) {
+                $myLikeCnt = TRUE;
+              }
+            }
+            ?>
+            <?php if ($myLikeCnt) : ?>
+              <span style="color:#FF0000; font-size:22px;">&hearts; </span>
+              <!-- ログイン中の人がいいねしている場合 -->
+            <?php else: ?>
+              <span  style="font-size:16px;">&#9825;</span>
+              <!-- いいねしていない場合 -->
+            <?php endif; ?>
+            <?php echo 1 ?>  <!-- 良いねされた数を表示 -->
+            </a>
+            <!-- *****ここまで課題で追加**** -->
           </p>
         </div><!-- /.msg -->
       <?php endforeach; ?>
