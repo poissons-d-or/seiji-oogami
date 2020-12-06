@@ -34,9 +34,8 @@ if (!empty($_POST)) {
   $message = '';
 }
 
-// 投稿を取得する
+// ページングのためのパラメータ設定
 $page = $_REQUEST['page'] ?? 1;
-
 $page = max($page, 1);
 
 // 最終ページを取得する
@@ -47,11 +46,17 @@ $page = min($page, $maxPage);
 
 $start = ($page - 1) * 5;
 
-$posts = $db->prepare('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY p.created DESC LIMIT ?, 5');
+// 投稿の情報（投稿内容、投稿者名、写真、投稿日時、いいね数を取得する  *****課題で改変*****
+$posts = $db->prepare(
+  'SELECT m.name, m.picture, p.*, COUNT(l.liked_post_id) AS likeCnt 
+  FROM members m, posts p LEFT JOIN likes l ON p.id=l.liked_post_id WHERE m.id=p.member_id
+  GROUP BY l.liked_post_id ORDER BY p.created DESC LIMIT ?, 5'
+);
 $posts->bindParam(1, $start, PDO::PARAM_INT);
 $posts->execute();
 
-// *****ここから課題で追加***** いいね情報を取得する
+// *****ここから課題で追加***** 
+// ログイン者がいいねした投稿を取得する
 $likes = $db->prepare('SELECT liked_post_id FROM likes WHERE member_id=?');
 $likes->execute([$member['id']]);
 while ($likedPost = $likes->fetch()) {
@@ -126,6 +131,7 @@ function makeLink($value)
             <?php if ($_SESSION['id'] === $post['member_id']) : ?>
               [<a href="delete.php?id=<?php echo h($post['id']); ?>" style="color: #F33;">削除</a>]
             <?php endif; ?>
+
             <!-- *****ここから課題で追加***** -->
             <a class="like-button" href="index.php?like=<?php echo h($post['id']); ?>">
               <?php
@@ -140,12 +146,12 @@ function makeLink($value)
               ?>
               <?php if ($myLikeCnt) : ?>
                 <span style="color:#FF0000; font-size:22px;">&hearts; </span>
-                <!-- ログイン中の人がいいねしている場合 -->
+                <!-- ログイン中のユーザーがいいねしている場合 -->
               <?php else : ?>
                 <span style="font-size:16px;">&#9825;</span>
-                <!-- いいねしていない場合 -->
+                <!-- ログイン中のユーザーがいいねしていない場合 -->
               <?php endif; ?>
-              <?php echo 1 ?>
+              <?php echo $post['likeCnt'] ?>
               <!-- 良いねされた数を表示 -->
             </a>
             <!-- *****ここまで課題で追加**** -->
