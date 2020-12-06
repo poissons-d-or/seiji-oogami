@@ -46,7 +46,7 @@ $page = min($page, $maxPage);
 
 $start = ($page - 1) * 5;
 
-// 投稿の情報（投稿内容、投稿者名、写真、投稿日時、いいね数を取得する  *****課題で改変*****
+// 投稿の情報（投稿内容、投稿者名、写真、投稿日時、いいね数）を取得する  *****課題で改変*****
 $posts = $db->prepare(
   'SELECT m.name, m.picture, p.*, COUNT(l.liked_post_id) AS likeCnt 
   FROM members m, posts p LEFT JOIN likes l ON p.id=l.liked_post_id WHERE m.id=p.member_id
@@ -56,11 +56,34 @@ $posts->bindParam(1, $start, PDO::PARAM_INT);
 $posts->execute();
 
 // *****ここから課題で追加***** 
-// ログイン者がいいねした投稿を取得する
+// ログインユーザーがいいねした投稿を取得する
 $likes = $db->prepare('SELECT liked_post_id FROM likes WHERE member_id=?');
 $likes->execute([$member['id']]);
 while ($likedPost = $likes->fetch()) {
   $myLikes[] = $likedPost['liked_post_id'];
+}
+
+// いいねボタンクリック時の処理
+if (isset($_REQUEST['like'])) {
+  if (isset($myLikes) && in_array($_REQUEST['like'], $myLikes)) { // いいね済みの投稿に対する処理
+    $cancel = $db->prepare('DELETE FROM likes WHERE liked_post_id=? AND member_id=?');
+    $cancel->execute([
+      $_REQUEST['like'],
+      $member['id']
+    ]);
+    // いいね取消し後、投稿一覧へ遷移する
+    header('Location: index.php');
+    exit();
+  } else { // いいねしていない投稿に対する処理
+    $liked = $db->prepare('INSERT INTO likes SET liked_post_id=?, member_id=?, created_at=NOW()');
+    $liked->execute([
+      $_REQUEST['like'],
+      $member['id']
+    ]);
+    // いいねの処理を実行し、投稿一覧へ遷移する
+    header('Location: index.php');
+    exit();
+  }
 }
 // *****ここまで課題で追加*****
 
@@ -152,7 +175,7 @@ function makeLink($value)
                 <!-- ログイン中のユーザーがいいねしていない場合 -->
               <?php endif; ?>
               <?php echo $post['likeCnt'] ?>
-              <!-- 良いねされた数を表示 -->
+              <!-- いいねされた数を表示 -->
             </a>
             <!-- *****ここまで課題で追加**** -->
           </p>
