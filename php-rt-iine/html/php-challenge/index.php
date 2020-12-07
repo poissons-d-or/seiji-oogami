@@ -50,7 +50,7 @@ $start = ($page - 1) * 5;
 $posts = $db->prepare(
   'SELECT m.name, m.picture, p.*, COUNT(l.liked_post_id) AS likeCnt 
   FROM members m, posts p LEFT JOIN likes l ON p.id=l.liked_post_id WHERE m.id=p.member_id
-  GROUP BY l.liked_post_id ORDER BY p.created DESC LIMIT ?, 5'
+  GROUP BY p.id ORDER BY p.created DESC LIMIT ?, 5'
 );
 $posts->bindParam(1, $start, PDO::PARAM_INT);
 $posts->execute();
