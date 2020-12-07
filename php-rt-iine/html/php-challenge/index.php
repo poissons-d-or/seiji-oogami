@@ -72,7 +72,7 @@ if (isset($_REQUEST['like'])) {
       $member['id']
     ]);
     // いいね取消し後、投稿一覧へ遷移する
-    header('Location: index.php');
+    header('Location: index.php?page=' . $page);
     exit();
   } else { // いいねしていない投稿に対する処理
     $liked = $db->prepare('INSERT INTO likes SET liked_post_id=?, member_id=?, created_at=NOW()');
@@ -81,7 +81,7 @@ if (isset($_REQUEST['like'])) {
       $member['id']
     ]);
     // いいねの処理を実行し、投稿一覧へ遷移する
-    header('Location: index.php');
+    header('Location: index.php?page=' . $page);
     exit();
   }
 }
@@ -156,7 +156,7 @@ function makeLink($value)
             <?php endif; ?>
 
             <!-- *****ここから課題で追加***** -->
-            <a class="like-button" href="index.php?like=<?php echo h($post['id']); ?>">
+            <a class="like-button" href="index.php?like=<?php echo h($post['id']); ?>&page=<?php echo h($page); ?>">
               <?php
               $myLikeCnt = FALSE;
               if (isset($myLikes)) {
