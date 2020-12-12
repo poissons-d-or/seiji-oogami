@@ -144,20 +144,30 @@ function makeLink($value)
       <!-- 投稿取得 -->
       <?php foreach ($posts as $post) : ?>
         <div class="msg">
+          <!-- *****名前、投稿、日時、返信ボタンの表示を改変***** -->
           <img src="member_picture/<?php echo h($post['picture']); ?>" width="60" alt="<?php echo h($post['name']); ?>" />
-          <p><?php echo makeLink(h($post['message'])); ?><span class="name">（<?php echo h($post['name']); ?>）</span>[<a href="index.php?res=<?php echo h($post['id']); ?>">Re</a>]</p>
-          <p class="day">
-            <a href="view.php?id=<?php echo h($post['id']); ?>"><?php echo h($post['created']); ?></a>
-            <?php if ($post['reply_post_id'] > 0) : ?>
-              <a href="view.php?id=<?php echo h($post['reply_post_id']); ?>">返信元のメッセージ</a>
-            <?php endif; ?>
-            <?php if ($_SESSION['id'] === $post['member_id']) : ?>
-              [<a href="delete.php?id=<?php echo h($post['id']); ?>" style="color: #F33;">削除</a>]
-            <?php endif; ?>
+          <p>
+            <span class="name"><?php echo h($post['name']); ?></span>
+            <span class="day">
+              <a href="view.php?id=<?php echo h($post['id']); ?>"><?php echo h($post['created']); ?></a>
+              <?php if ($post['reply_post_id'] > 0) : ?>
+                <a href="view.php?id=<?php echo h($post['reply_post_id']); ?>">返信元のメッセージ</a>
+              <?php endif; ?>
+              <?php if ($_SESSION['id'] === $post['member_id']) : ?>
+                [<a href="delete.php?id=<?php echo h($post['id']); ?>" style="color: #F33;">削除</a>]
+              <?php endif; ?>
+            </span><!-- /.day -->
+            <br>
+            <?php echo makeLink(h($post['message'])); ?>
+            <!-- *****返信ボタンはアイコン表示へ改変*****
+             [<a href="index.php?res=<?php echo h($post['id']); ?>">Re</a>] -->
+          </p>
 
-            <!-- *****ここから課題で追加***** -->
+          <!-- *****ここから課題で追加***** -->
+          <div class="icons">
+            <a href="index.php?res=<?php echo h($post['id']); ?>"><img src="images/respond.png" alt=""></a>
             <a class="like-button" href="index.php?like=<?php echo h($post['id']); ?>&page=<?php echo h($page); ?>">
-              <?php
+              <?php // ログイン中のユーザーがいいねした投稿のidをチェック
               $myLikeCnt = FALSE;
               if (isset($myLikes)) {
                 foreach ($myLikes as $myLike) {
@@ -168,17 +178,21 @@ function makeLink($value)
               }
               ?>
               <?php if ($myLikeCnt) : ?>
-                <span style="color:#FF0000; font-size:22px;">&hearts; </span>
                 <!-- ログイン中のユーザーがいいねしている場合 -->
+                <img src="images/liked.png" alt="">
               <?php else : ?>
-                <span style="font-size:16px;">&#9825;</span>
                 <!-- ログイン中のユーザーがいいねしていない場合 -->
+                <img src="images/like.png" alt="">
               <?php endif; ?>
               <?php echo $post['likeCnt'] ?>
               <!-- いいねされた数を表示 -->
-            </a>
-            <!-- *****ここまで課題で追加**** -->
-          </p>
+            </a><!-- /.like-button -->
+            <a class="retweet-button" href="index.php?page=1">
+              <img src="images/retweet.png" alt="">
+              1
+            </a><!-- /.retweet-button -->
+          </div><!-- /.icons -->
+          <!-- *****ここまで課題で追加**** -->
         </div><!-- /.msg -->
       <?php endforeach; ?>
 
