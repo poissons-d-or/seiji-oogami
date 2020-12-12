@@ -184,7 +184,7 @@ function makeLink($value)
                 <!-- ログイン中のユーザーがいいねしていない場合 -->
                 <img src="images/like.png" alt="">
               <?php endif; ?>
-              <?php echo $post['likeCnt'] ?>
+              <?php echo $post['likeCnt']; ?>
               <!-- いいねされた数を表示 -->
             </a><!-- /.like-button -->
             <a class="retweet-button" href="index.php?page=1">
