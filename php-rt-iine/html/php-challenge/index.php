@@ -88,14 +88,27 @@ if (isset($_REQUEST['like'])) {
 }
 
 //リツイートボタンクリック時の処理
-
-/* SQL文メモ
-INSERT INTO retweets SET RTed_post_id=?, member_id=?, created_at=NOW()
-
-
-header('Location: index.php');
-exit();
-*/
+if (isset($_REQUEST['rt'])) {
+  if (isset($myRTs) && in_array($_REQUEST['rt'], $myRTs)) { // リツイート済の投稿に対する処理
+    $rtCancel = $db->prepare('DELETE FROM retweets WHERE RTed_post_id=? AND member_id=?');
+    $rtCancel->execute([
+      $_REQUEST['rt'],
+      $member['id']
+    ]);
+    // リツイート取消し後、投稿一覧へ遷移する
+    header('Location: index.php');
+    exit();
+  } else { // リツイートしていない投稿に対する処理
+    $retweeted = $db->prepare('INSERT INTO retweets SET RTed_post_id=?, member_id=?, created_at=NOW()');
+    $retweeted->execute([
+      $_REQUEST['rt'],
+      $member['id']
+    ]);
+    // リツイートの処理を実行し、投稿一覧へ遷移する
+    header('Location: index.php');
+    exit();
+  }
+}
 // *****ここまで課題で追加*****
 
 // 返信の場合
@@ -208,7 +221,7 @@ function makeLink($value)
               <?php echo $likeCount['likeCNT']; ?>
             </a><!-- /.like-button -->
 
-            <a class="retweet-button" href="index.php">
+            <a class="retweet-button" href="index.php?rt=<?php echo h($post['id']); ?>">
               <?php // ログイン中のユーザーがリツイートした投稿のidをチェック
               $myRTCnt = FALSE;
               if (isset($myRTs)) {
