@@ -46,12 +46,8 @@ $page = min($page, $maxPage);
 
 $start = ($page - 1) * 5;
 
-// 投稿の情報（投稿内容、投稿者名、写真、投稿日時、いいね数）を取得する  *****課題で改変*****
-$posts = $db->prepare(
-  'SELECT m.name, m.picture, p.*, COUNT(l.liked_post_id) AS likeCnt 
-  FROM members m, posts p LEFT JOIN likes l ON p.id=l.liked_post_id WHERE m.id=p.member_id
-  GROUP BY p.id ORDER BY p.created DESC LIMIT ?, 5'
-);
+// 投稿を取得する（投稿内容、投稿者名、写真、投稿日時)
+$posts = $db->prepare('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY p.created DESC LIMIT ?, 5');
 $posts->bindParam(1, $start, PDO::PARAM_INT);
 $posts->execute();
 
@@ -62,7 +58,12 @@ $likes->execute([$member['id']]);
 while ($likedPost = $likes->fetch()) {
   $myLikes[] = $likedPost['liked_post_id'];
 }
-
+// ログインユーザーがリツイートした投稿を取得する
+$retweets = $db->prepare('SELECT RTed_post_id FROM retweets WHERE member_id=?');
+$retweets->execute([$member['id']]);
+while ($RTedPost = $retweets->fetch()) {
+  $myRTs[] = $RTedPost['RTed_post_id'];
+}
 // いいねボタンクリック時の処理
 if (isset($_REQUEST['like'])) {
   if (isset($myLikes) && in_array($_REQUEST['like'], $myLikes)) { // いいね済みの投稿に対する処理
@@ -85,11 +86,21 @@ if (isset($_REQUEST['like'])) {
     exit();
   }
 }
+
+//リツイートボタンクリック時の処理
+
+/* SQL文メモ
+INSERT INTO retweets SET RTed_post_id=?, member_id=?, created_at=NOW()
+
+
+header('Location: index.php');
+exit();
+*/
 // *****ここまで課題で追加*****
 
 // 返信の場合
 if (isset($_REQUEST['res'])) {
-  $response = $db->prepare('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id AND p.id=?');
+  $response = $db->prepare('SELECT m.name, p.* FROM members m, posts p WHERE m.id=p.member_id AND p.id=?');
   $response->execute([$_REQUEST['res']]);
 
   $table = $response->fetch();
@@ -159,13 +170,22 @@ function makeLink($value)
             </span><!-- /.day -->
             <br>
             <?php echo makeLink(h($post['message'])); ?>
-            <!-- *****返信ボタンはアイコン表示へ改変*****
-             [<a href="index.php?res=<?php echo h($post['id']); ?>">Re</a>] -->
           </p>
 
           <!-- *****ここから課題で追加***** -->
+          <?php
+          // いいね数の取得
+          $likeCounts = $db->prepare('SELECT COUNT(*) AS likeCNT FROM likes WHERE liked_post_id=?');
+          $likeCounts->execute([$post['id']]);
+          $likeCount = $likeCounts->fetch();
+          // リツイート数の取得
+          $rtCounts = $db->prepare('SELECT COUNT(*) AS rtCNT FROM retweets WHERE RTed_post_id=?');
+          $rtCounts->execute([$post['id']]);
+          $rtCount = $rtCounts->fetch();
+          ?>
           <div class="icons">
             <a href="index.php?res=<?php echo h($post['id']); ?>"><img src="images/respond.png" alt=""></a>
+
             <a class="like-button" href="index.php?like=<?php echo h($post['id']); ?>&page=<?php echo h($page); ?>">
               <?php // ログイン中のユーザーがいいねした投稿のidをチェック
               $myLikeCnt = FALSE;
@@ -184,15 +204,34 @@ function makeLink($value)
                 <!-- ログイン中のユーザーがいいねしていない場合 -->
                 <img src="images/like.png" alt="">
               <?php endif; ?>
-              <?php echo $post['likeCnt']; ?>
               <!-- いいねされた数を表示 -->
+              <?php echo $likeCount['likeCNT']; ?>
             </a><!-- /.like-button -->
-            <a class="retweet-button" href="index.php?page=1">
-              <img src="images/retweet.png" alt="">
-              1
+
+            <a class="retweet-button" href="index.php">
+              <?php // ログイン中のユーザーがリツイートした投稿のidをチェック
+              $myRTCnt = FALSE;
+              if (isset($myRTs)) {
+                foreach ($myRTs as $myRT) {
+                  if ($myRT === $post['id']) {
+                    $myRTCnt = TRUE;
+                  }
+                }
+              }
+              ?>
+              <?php if ($myRTCnt) : ?>
+                <!-- ログイン中のユーザーがリツイートしている場合 -->
+                <img src="images/retweeted.png" alt="">
+              <?php else : ?>
+                <!-- ログイン中のユーザーがリツイートしていない場合 -->
+                <img src="images/retweet.png" alt="">
+              <?php endif; ?>
+              <!-- リツイートされた数を表示 -->
+              <?php echo $rtCount['rtCNT']; ?>
             </a><!-- /.retweet-button -->
           </div><!-- /.icons -->
           <!-- *****ここまで課題で追加**** -->
+
         </div><!-- /.msg -->
       <?php endforeach; ?>
 
