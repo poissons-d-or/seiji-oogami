@@ -72,10 +72,10 @@ while ($likedPost = $likes->fetch()) {
   $myLikes[] = $likedPost['liked_post_id'];
 }
 // ログインユーザーがリツイートした投稿を取得する
-$retweets = $db->prepare('SELECT RTed_post_id FROM retweets WHERE member_id=?');
+$retweets = $db->prepare('SELECT post_id FROM display WHERE display_member_id=? AND is_retweet=TRUE');
 $retweets->execute([$member['id']]);
 while ($RTedPost = $retweets->fetch()) {
-  $myRTs[] = $RTedPost['RTed_post_id'];
+  $myRTs[] = $RTedPost['post_id'];
 }
 // いいねボタンクリック時の処理
 if (isset($_REQUEST['like'])) {
@@ -103,13 +103,8 @@ if (isset($_REQUEST['like'])) {
 if (isset($_REQUEST['rt'])) {
   if (isset($myRTs) && in_array($_REQUEST['rt'], $myRTs)) {
     // リツイート済の投稿に対する処理
-    $rtCancel = $db->prepare(
-      'DELETE FROM retweets WHERE RTed_post_id=? AND member_id=?;
-       DELETE FROM display WHERE post_id=? AND display_member_id=?;'
-    );
+    $rtCancel = $db->prepare('DELETE FROM display WHERE post_id=? AND display_member_id=? AND is_retweet=TRUE');
     $rtCancel->execute([
-      $_REQUEST['rt'],
-      $member['id'],
       $_REQUEST['rt'],
       $member['id']
     ]);
@@ -118,13 +113,8 @@ if (isset($_REQUEST['rt'])) {
     exit();
   } else {
     // リツイートしていない投稿に対する処理
-    $retweeted = $db->prepare(
-      'INSERT INTO retweets SET RTed_post_id=?, member_id=?, created_at=NOW();
-       INSERT INTO display SET post_id=?, display_member_id=?, display_created=NOW();'
-    );
+    $retweeted = $db->prepare('INSERT INTO display SET post_id=?, display_member_id=?, is_retweet=TRUE, display_created=NOW();');
     $retweeted->execute([
-      $_REQUEST['rt'],
-      $member['id'],
       $_REQUEST['rt'],
       $member['id']
     ]);
@@ -216,7 +206,7 @@ function makeLink($value)
           $likeCounts->execute([$post['id']]);
           $likeCount = $likeCounts->fetch();
           // リツイート数の取得
-          $rtCounts = $db->prepare('SELECT COUNT(*) AS rtCNT FROM retweets WHERE RTed_post_id=?');
+          $rtCounts = $db->prepare('SELECT COUNT(*) AS rtCNT FROM display WHERE post_id=? AND is_retweet=TRUE');
           $rtCounts->execute([$post['id']]);
           $rtCount = $rtCounts->fetch();
           ?>
