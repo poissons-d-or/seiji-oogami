@@ -20,8 +20,13 @@ if (!empty($_POST)) {
   if ($_POST['message'] ?? '' !== '') {
     // displayテーブルへの書き込みを追加
     $message = $db->prepare(
-      'INSERT INTO posts SET member_id=?, message=?, reply_post_id=?, created=NOW(); 
-       INSERT INTO display(post_id, display_member_id, display_created) SELECT id, member_id, created FROM posts ORDER BY id DESC LIMIT 1;'
+      'INSERT INTO posts
+       SET member_id=?, message=?, reply_post_id=?, created=NOW(); 
+       INSERT INTO display(post_id, display_member_id, display_created) 
+       SELECT id, member_id, created 
+       FROM posts 
+       ORDER BY id DESC 
+       LIMIT 1;'
     );
     $message->execute([
       $member['id'],
@@ -179,20 +184,34 @@ function makeLink($value)
         </div>
       </form>
 
-      <!-- 投稿取得 -->
+      <!-- 投稿を表示 -->
       <?php foreach ($posts as $post) : ?>
         <div class="msg">
+          <!-- *****ここから課題で追加  投稿がリツイートの時に表示する注釈***** -->
+          <?php
+          if ($post['is_retweet']) {
+            $rtMember = $db->prepare(
+              'SELECT d.*, m.id, m.name
+               FROM display d, members m
+               WHERE d.id=? AND d.display_member_id=m.id AND is_retweet=TRUE'
+            );
+            $rtMember->execute([$post[0]]);
+            $rtName = $rtMember->fetch();
+          ?>
+            <span class="rt-notice"><?php echo $rtName['name']; ?>さんがリツイート</span>
+          <?php } ?>
+          <!-- *****ここまで課題で追加 ***** -->
           <!-- *****名前、投稿、日時、返信ボタンの表示を改変***** -->
           <img src="member_picture/<?php echo h($post['picture']); ?>" width="60" alt="<?php echo h($post['name']); ?>" />
           <p>
             <span class="name"><?php echo h($post['name']); ?></span>
             <span class="day">
-              <a href="view.php?id=<?php echo h($post['id']); ?>"><?php echo h($post['created']); ?></a>
+              <a href="view.php?id=<?php echo h($post['post_id']); ?>"><?php echo h($post['created']); ?></a>
               <?php if ($post['reply_post_id'] > 0) : ?>
                 <a href="view.php?id=<?php echo h($post['reply_post_id']); ?>">返信元のメッセージ</a>
               <?php endif; ?>
               <?php if ($_SESSION['id'] === $post['member_id']) : ?>
-                [<a href="delete.php?id=<?php echo h($post['id']); ?>" style="color: #F33;">削除</a>]
+                [<a href="delete.php?id=<?php echo h($post['post_id']); ?>" style="color: #F33;">削除</a>]
               <?php endif; ?>
             </span><!-- /.day -->
             <br>
@@ -203,22 +222,22 @@ function makeLink($value)
           <?php
           // いいね数の取得
           $likeCounts = $db->prepare('SELECT COUNT(*) AS likeCNT FROM likes WHERE liked_post_id=?');
-          $likeCounts->execute([$post['id']]);
+          $likeCounts->execute([$post['post_id']]);
           $likeCount = $likeCounts->fetch();
           // リツイート数の取得
           $rtCounts = $db->prepare('SELECT COUNT(*) AS rtCNT FROM display WHERE post_id=? AND is_retweet=TRUE');
-          $rtCounts->execute([$post['id']]);
+          $rtCounts->execute([$post['post_id']]);
           $rtCount = $rtCounts->fetch();
           ?>
           <div class="icons">
-            <a href="index.php?res=<?php echo h($post['id']); ?>"><img src="images/respond.png" alt=""></a>
+            <a href="index.php?res=<?php echo h($post['post_id']); ?>"><img src="images/respond.png" alt=""></a>
 
-            <a class="like-button" href="index.php?like=<?php echo h($post['id']); ?>&page=<?php echo h($page); ?>">
+            <a class="like-button" href="index.php?like=<?php echo h($post['post_id']); ?>&page=<?php echo h($page); ?>">
               <?php // ログイン中のユーザーがいいねした投稿のidをチェック
               $myLikeCnt = FALSE;
               if (isset($myLikes)) {
                 foreach ($myLikes as $myLike) {
-                  if ($myLike === $post['id']) {
+                  if ($myLike === $post['post_id']) {
                     $myLikeCnt = TRUE;
                   }
                 }
@@ -235,12 +254,12 @@ function makeLink($value)
               <?php echo $likeCount['likeCNT']; ?>
             </a><!-- /.like-button -->
 
-            <a class="retweet-button" href="index.php?rt=<?php echo h($post['id']); ?>">
+            <a class="retweet-button" href="index.php?rt=<?php echo h($post['post_id']); ?>">
               <?php // ログイン中のユーザーがリツイートした投稿のidをチェック
               $myRTCnt = FALSE;
               if (isset($myRTs)) {
                 foreach ($myRTs as $myRT) {
-                  if ($myRT === $post['id']) {
+                  if ($myRT === $post['post_id']) {
                     $myRTCnt = TRUE;
                   }
                 }
