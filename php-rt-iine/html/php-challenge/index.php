@@ -59,9 +59,9 @@ $start = ($page - 1) * 5;
 // 投稿を取得する（投稿内容、投稿者名、写真、投稿日時) *****課題で改変*****
 // displayテーブルとリレーションを張る
 $posts = $db->prepare(
-  'SELECT d.*, m.name, m.picture, p.* 
+  'SELECT p.*, m.name, m.picture, d.* 
    FROM members m, posts p
-   LEFT JOIN display d ON d.post_id=p.id
+   LEFT JOIN display d ON p.id=d.post_id
    WHERE m.id=p.member_id 
    ORDER BY d.display_created DESC 
    LIMIT ?, 5'
@@ -195,7 +195,7 @@ function makeLink($value)
                FROM display d, members m
                WHERE d.id=? AND d.display_member_id=m.id AND is_retweet=TRUE'
             );
-            $rtMember->execute([$post[0]]);
+            $rtMember->execute([$post['id']]);
             $rtName = $rtMember->fetch();
           ?>
             <span class="rt-notice"><?php echo $rtName['name']; ?>さんがリツイート</span>
