@@ -15,10 +15,14 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   exit();
 }
 
-// 投稿を記録する
+// 投稿を記録する  *****課題で改変***** 
 if (!empty($_POST)) {
   if ($_POST['message'] ?? '' !== '') {
-    $message = $db->prepare('INSERT INTO posts SET member_id=?, message=?, reply_post_id=?, created=NOW()');
+    // displayテーブルへの書き込みを追加
+    $message = $db->prepare(
+      'INSERT INTO posts SET member_id=?, message=?, reply_post_id=?, created=NOW(); 
+       INSERT INTO display(post_id, display_member_id, display_created) SELECT id, member_id, created FROM posts ORDER BY id DESC LIMIT 1;'
+    );
     $message->execute([
       $member['id'],
       $_POST['message'],
@@ -38,16 +42,25 @@ if (!empty($_POST)) {
 $page = $_REQUEST['page'] ?? 1;
 $page = max($page, 1);
 
-// 最終ページを取得する
-$counts = $db->query('SELECT COUNT(*) AS cnt FROM posts');
+// 最終ページを取得する *****課題で改変*****
+// 投稿数をdisplayテーブルから取得するように変更
+$counts = $db->query('SELECT COUNT(*) AS cnt FROM display');
 $count = $counts->fetch();
 $maxPage = ceil($count['cnt'] / 5);
 $page = min($page, $maxPage);
 
 $start = ($page - 1) * 5;
 
-// 投稿を取得する（投稿内容、投稿者名、写真、投稿日時)
-$posts = $db->prepare('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY p.created DESC LIMIT ?, 5');
+// 投稿を取得する（投稿内容、投稿者名、写真、投稿日時) *****課題で改変*****
+// displayテーブルとリレーションを張る
+$posts = $db->prepare(
+  'SELECT d.*, m.name, m.picture, p.* 
+   FROM members m, posts p
+   LEFT JOIN display d ON d.post_id=p.id
+   WHERE m.id=p.member_id 
+   ORDER BY d.display_created DESC 
+   LIMIT ?, 5'
+);
 $posts->bindParam(1, $start, PDO::PARAM_INT);
 $posts->execute();
 
@@ -86,21 +99,32 @@ if (isset($_REQUEST['like'])) {
     exit();
   }
 }
-
 //リツイートボタンクリック時の処理
 if (isset($_REQUEST['rt'])) {
-  if (isset($myRTs) && in_array($_REQUEST['rt'], $myRTs)) { // リツイート済の投稿に対する処理
-    $rtCancel = $db->prepare('DELETE FROM retweets WHERE RTed_post_id=? AND member_id=?');
+  if (isset($myRTs) && in_array($_REQUEST['rt'], $myRTs)) {
+    // リツイート済の投稿に対する処理
+    $rtCancel = $db->prepare(
+      'DELETE FROM retweets WHERE RTed_post_id=? AND member_id=?;
+       DELETE FROM display WHERE post_id=? AND display_member_id=?;'
+    );
     $rtCancel->execute([
+      $_REQUEST['rt'],
+      $member['id'],
       $_REQUEST['rt'],
       $member['id']
     ]);
     // リツイート取消し後、投稿一覧へ遷移する
     header('Location: index.php');
     exit();
-  } else { // リツイートしていない投稿に対する処理
-    $retweeted = $db->prepare('INSERT INTO retweets SET RTed_post_id=?, member_id=?, created_at=NOW()');
+  } else {
+    // リツイートしていない投稿に対する処理
+    $retweeted = $db->prepare(
+      'INSERT INTO retweets SET RTed_post_id=?, member_id=?, created_at=NOW();
+       INSERT INTO display SET post_id=?, display_member_id=?, display_created=NOW();'
+    );
     $retweeted->execute([
+      $_REQUEST['rt'],
+      $member['id'],
       $_REQUEST['rt'],
       $member['id']
     ]);
