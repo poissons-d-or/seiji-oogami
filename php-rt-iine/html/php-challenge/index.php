@@ -134,7 +134,6 @@ if (isset($_REQUEST['rt'])) {
 if (isset($_REQUEST['res'])) {
   $response = $db->prepare('SELECT m.name, p.* FROM members m, posts p WHERE m.id=p.member_id AND p.id=?');
   $response->execute([$_REQUEST['res']]);
-
   $table = $response->fetch();
   $message = '@' . $table['name'] . ' ' . $table['message'];
 }
@@ -198,7 +197,15 @@ function makeLink($value)
             $rtMember->execute([$post['id']]);
             $rtName = $rtMember->fetch();
           ?>
-            <span class="rt-notice"><?php echo $rtName['name']; ?>さんがリツイート</span>
+            <span class="rt-notice">
+              <?php
+              if ($member['id'] === $rtName['display_member_id']) {
+                echo "リツイート済み";
+              } else {
+                echo $rtName['name'] . "さんがリツイート";
+              }
+              ?>
+            </span>
           <?php } ?>
           <!-- *****ここまで課題で追加 ***** -->
           <!-- *****名前、投稿、日時、返信ボタンの表示を改変***** -->
