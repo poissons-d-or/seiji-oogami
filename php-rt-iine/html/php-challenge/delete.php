@@ -12,8 +12,11 @@ if (isset($_SESSION['id'])) {
 
   if ($message['member_id'] === $_SESSION['id']) {
     // 投稿を削除する
-    $del = $db->prepare('DELETE FROM posts WHERE id=?');
-    $del->execute([$id]);
+    $del = $db->prepare(
+      'DELETE FROM posts WHERE id=?;
+       DELETE FROM display WHERE post_id=?;'
+    );
+    $del->execute([$id, $id]);
   }
 }
 header('Location: index.php');
