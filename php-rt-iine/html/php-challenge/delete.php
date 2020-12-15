@@ -14,9 +14,10 @@ if (isset($_SESSION['id'])) {
     // 投稿を削除する
     $del = $db->prepare(
       'DELETE FROM posts WHERE id=?;
-       DELETE FROM display WHERE post_id=?;'
+       DELETE FROM display WHERE post_id=?;
+       DELETE FROM likes WHERE liked_post_id=?;'
     );
-    $del->execute([$id, $id]);
+    $del->execute([$id, $id, $id]);
   }
 }
 header('Location: index.php');
