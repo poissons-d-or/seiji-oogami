@@ -186,41 +186,27 @@ function makeLink($value)
             <a href="index.php?res=<?php echo h($post['post_id']); ?>"><img src="images/respond.png" alt="返信する"></a>
 
             <a class="like-button" href="view.php?id=<?php echo h($post['post_id']); ?>&like=<?php echo h($post['post_id']); ?>">
-              <?php // ログイン中のユーザーがいいねした投稿のidをチェック
-              if (isset($myLikes)) {
-                if (in_array($post['post_id'], $myLikes)) {
-              ?>
-                  <!--  ログイン中のユーザーがいいねしている場合 -->
-                  <img src="images/liked.png" alt="いいねを取消す">
-                <?php
-                } else {
-                ?>
-                  <!--  ログイン中のユーザーがいいねしていない場合 -->
-                  <img src="images/like.png" alt="いいねする">
-              <?php
-                }
-              }
-              ?>
+              <!-- ログイン中のユーザーがいいねした投稿のidをチェック -->
+              <?php if (isset($myLikes) && in_array($post['post_id'], $myLikes)) : ?>
+                <!-- ログイン中のユーザーがいいねしている場合 -->
+                <img src="images/liked.png" alt="いいねを取消す">
+              <?php else : ?>
+                <!-- ログイン中のユーザーがいいねしていない場合 -->
+                <img src="images/like.png" alt="いいねする">
+              <?php endif; ?>
               <!-- いいねされた数を表示 -->
               <?php echo $likeCount['likeCNT']; ?>
             </a><!-- /.like-button -->
 
             <a class="retweet-button" href="view.php?id=<?php echo h($post['post_id']); ?>&rt=<?php echo h($post['post_id']); ?>">
-              <?php // ログイン中のユーザーがリツイートした投稿のidをチェック
-              if (isset($myRTs)) {
-                if (in_array($post['post_id'], $myRTs)) {
-              ?>
-                  <!-- ログイン中のユーザーがリツイートしている場合 -->
-                  <img src="images/retweeted.png" alt="リツイートを取消す">
-                <?php
-                } else {
-                ?>
-                  <!-- ログイン中のユーザーがリツイートしていない場合 -->
-                  <img src="images/retweet.png" alt="リツイートする">
-              <?php
-                }
-              }
-              ?>
+              <!-- ログイン中のユーザーがリツイートした投稿のidをチェック -->
+              <?php if (isset($myRTs) && in_array($post['post_id'], $myRTs)) :  ?>
+                <!-- ログイン中のユーザーがリツイートしている場合 -->
+                <img src="images/retweeted.png" alt="リツイートを取消す">
+              <?php else : ?>
+                <!-- ログイン中のユーザーがリツイートしていない場合 -->
+                <img src="images/retweet.png" alt="リツイートする">
+              <?php endif; ?>
               <!-- リツイートされた数を表示 -->
               <?php echo $rtCount['rtCNT']; ?>
             </a><!-- /.retweet-button -->

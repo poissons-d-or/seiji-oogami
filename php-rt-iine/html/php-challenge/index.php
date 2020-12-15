@@ -275,17 +275,8 @@ function makeLink($value)
             <a href="index.php?res=<?php echo h($post['post_id']); ?>"><img src="images/respond.png" alt="返信する"></a>
 
             <a class="like-button" href="index.php?like=<?php echo h($post['post_id']); ?>&page=<?php echo h($page); ?>">
-              <?php // ログイン中のユーザーがいいねした投稿のidをチェック
-              $myLikeCnt = FALSE;
-              if (isset($myLikes)) {
-                foreach ($myLikes as $myLike) {
-                  if ($myLike === $post['post_id']) {
-                    $myLikeCnt = TRUE;
-                  }
-                }
-              }
-              ?>
-              <?php if ($myLikeCnt) : ?>
+              <!-- ログイン中のユーザーがいいねした投稿のidをチェック -->
+              <?php if (isset($myLikes) && in_array($post['post_id'], $myLikes)) : ?>
                 <!-- ログイン中のユーザーがいいねしている場合 -->
                 <img src="images/liked.png" alt="いいねを取消す">
               <?php else : ?>
@@ -297,17 +288,8 @@ function makeLink($value)
             </a><!-- /.like-button -->
 
             <a class="retweet-button" href="index.php?rt=<?php echo h($post['post_id']); ?>">
-              <?php // ログイン中のユーザーがリツイートした投稿のidをチェック
-              $myRTCnt = FALSE;
-              if (isset($myRTs)) {
-                foreach ($myRTs as $myRT) {
-                  if ($myRT === $post['post_id']) {
-                    $myRTCnt = TRUE;
-                  }
-                }
-              }
-              ?>
-              <?php if ($myRTCnt) : ?>
+              <!-- ログイン中のユーザーがリツイートした投稿のidをチェック -->
+              <?php if (isset($myRTs) && in_array($post['post_id'], $myRTs)) :  ?>
                 <!-- ログイン中のユーザーがリツイートしている場合 -->
                 <img src="images/retweeted.png" alt="リツイートを取消す">
               <?php else : ?>
