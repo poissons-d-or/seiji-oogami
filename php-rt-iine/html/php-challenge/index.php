@@ -49,7 +49,10 @@ $page = max($page, 1);
 
 // 最終ページを取得する *****課題で改変*****
 // 投稿数をdisplayテーブルから取得するように変更
-$counts = $db->query('SELECT COUNT(*) AS cnt FROM display');
+$counts = $db->query(
+  'SELECT COUNT(*) AS cnt
+   FROM display'
+);
 $count = $counts->fetch();
 $maxPage = ceil($count['cnt'] / 5);
 $page = min($page, $maxPage);
@@ -71,13 +74,21 @@ $posts->execute();
 
 // *****ここから課題で追加***** 
 // ログインユーザーがいいねした投稿を取得する
-$likes = $db->prepare('SELECT liked_post_id FROM likes WHERE member_id=?');
+$likes = $db->prepare(
+  'SELECT liked_post_id
+   FROM likes
+   WHERE member_id=?'
+);
 $likes->execute([$member['id']]);
 while ($likedPost = $likes->fetch()) {
   $myLikes[] = $likedPost['liked_post_id'];
 }
 // ログインユーザーがリツイートした投稿を取得する
-$retweets = $db->prepare('SELECT post_id FROM display WHERE display_member_id=? AND is_retweet=TRUE');
+$retweets = $db->prepare(
+  'SELECT post_id
+   FROM display
+   WHERE display_member_id=? AND is_retweet=TRUE'
+);
 $retweets->execute([$member['id']]);
 while ($RTedPost = $retweets->fetch()) {
   $myRTs[] = $RTedPost['post_id'];
@@ -85,7 +96,10 @@ while ($RTedPost = $retweets->fetch()) {
 // いいねボタンクリック時の処理
 if (isset($_REQUEST['like'])) {
   if (isset($myLikes) && in_array($_REQUEST['like'], $myLikes)) { // いいね済みの投稿に対する処理
-    $cancel = $db->prepare('DELETE FROM likes WHERE liked_post_id=? AND member_id=?');
+    $cancel = $db->prepare(
+      'DELETE FROM likes
+       WHERE liked_post_id=? AND member_id=?'
+    );
     $cancel->execute([
       $_REQUEST['like'],
       $member['id']
@@ -94,7 +108,10 @@ if (isset($_REQUEST['like'])) {
     header('Location: index.php?page=' . $page);
     exit();
   } else { // いいねしていない投稿に対する処理
-    $liked = $db->prepare('INSERT INTO likes SET liked_post_id=?, member_id=?, created_at=NOW()');
+    $liked = $db->prepare(
+      'INSERT INTO likes
+       SET liked_post_id=?, member_id=?, created_at=NOW()'
+    );
     $liked->execute([
       $_REQUEST['like'],
       $member['id']
@@ -108,7 +125,10 @@ if (isset($_REQUEST['like'])) {
 if (isset($_REQUEST['rt'])) {
   if (isset($myRTs) && in_array($_REQUEST['rt'], $myRTs)) {
     // リツイート済の投稿に対する処理
-    $rtCancel = $db->prepare('DELETE FROM display WHERE post_id=? AND display_member_id=? AND is_retweet=TRUE');
+    $rtCancel = $db->prepare(
+      'DELETE FROM display
+       WHERE post_id=? AND display_member_id=? AND is_retweet=TRUE'
+    );
     $rtCancel->execute([
       $_REQUEST['rt'],
       $member['id']
@@ -118,7 +138,10 @@ if (isset($_REQUEST['rt'])) {
     exit();
   } else {
     // リツイートしていない投稿に対する処理
-    $retweeted = $db->prepare('INSERT INTO display SET post_id=?, display_member_id=?, is_retweet=TRUE, display_created=NOW();');
+    $retweeted = $db->prepare(
+      'INSERT INTO display
+       SET post_id=?, display_member_id=?, is_retweet=TRUE, display_created=NOW();'
+    );
     $retweeted->execute([
       $_REQUEST['rt'],
       $member['id']
@@ -132,7 +155,11 @@ if (isset($_REQUEST['rt'])) {
 
 // 返信の場合
 if (isset($_REQUEST['res'])) {
-  $response = $db->prepare('SELECT m.name, p.* FROM members m, posts p WHERE m.id=p.member_id AND p.id=?');
+  $response = $db->prepare(
+    'SELECT m.name, p.*
+     FROM members m, posts p
+     WHERE m.id=p.member_id AND p.id=?'
+  );
   $response->execute([$_REQUEST['res']]);
   $table = $response->fetch();
   $message = '@' . $table['name'] . ' ' . $table['message'];
@@ -228,16 +255,24 @@ function makeLink($value)
           <!-- *****ここから課題で追加***** -->
           <?php
           // いいね数の取得
-          $likeCounts = $db->prepare('SELECT COUNT(*) AS likeCNT FROM likes WHERE liked_post_id=?');
+          $likeCounts = $db->prepare(
+            'SELECT COUNT(*) AS likeCNT
+             FROM likes 
+             WHERE liked_post_id=?'
+          );
           $likeCounts->execute([$post['post_id']]);
           $likeCount = $likeCounts->fetch();
           // リツイート数の取得
-          $rtCounts = $db->prepare('SELECT COUNT(*) AS rtCNT FROM display WHERE post_id=? AND is_retweet=TRUE');
+          $rtCounts = $db->prepare(
+            'SELECT COUNT(*) AS rtCNT
+             FROM display 
+             WHERE post_id=? AND is_retweet=TRUE'
+          );
           $rtCounts->execute([$post['post_id']]);
           $rtCount = $rtCounts->fetch();
           ?>
           <div class="icons">
-            <a href="index.php?res=<?php echo h($post['post_id']); ?>"><img src="images/respond.png" alt=""></a>
+            <a href="index.php?res=<?php echo h($post['post_id']); ?>"><img src="images/respond.png" alt="返信する"></a>
 
             <a class="like-button" href="index.php?like=<?php echo h($post['post_id']); ?>&page=<?php echo h($page); ?>">
               <?php // ログイン中のユーザーがいいねした投稿のidをチェック
@@ -252,10 +287,10 @@ function makeLink($value)
               ?>
               <?php if ($myLikeCnt) : ?>
                 <!-- ログイン中のユーザーがいいねしている場合 -->
-                <img src="images/liked.png" alt="">
+                <img src="images/liked.png" alt="いいねを取消す">
               <?php else : ?>
                 <!-- ログイン中のユーザーがいいねしていない場合 -->
-                <img src="images/like.png" alt="">
+                <img src="images/like.png" alt="いいねする">
               <?php endif; ?>
               <!-- いいねされた数を表示 -->
               <?php echo $likeCount['likeCNT']; ?>
@@ -274,10 +309,10 @@ function makeLink($value)
               ?>
               <?php if ($myRTCnt) : ?>
                 <!-- ログイン中のユーザーがリツイートしている場合 -->
-                <img src="images/retweeted.png" alt="">
+                <img src="images/retweeted.png" alt="リツイートを取消す">
               <?php else : ?>
                 <!-- ログイン中のユーザーがリツイートしていない場合 -->
-                <img src="images/retweet.png" alt="">
+                <img src="images/retweet.png" alt="リツイートする">
               <?php endif; ?>
               <!-- リツイートされた数を表示 -->
               <?php echo $rtCount['rtCNT']; ?>
