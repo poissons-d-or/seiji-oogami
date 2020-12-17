@@ -95,7 +95,7 @@ while ($RTedPost = $retweets->fetch()) {
 }
 // いいねボタンクリック時の処理
 if (isset($_REQUEST['like'])) {
-  if (isset($myLikes) && in_array($_REQUEST['like'], $myLikes)) { // いいね済みの投稿に対する処理
+  if (isset($myLikes) && in_array($_REQUEST['like'], $myLikes, true)) { // いいね済みの投稿に対する処理
     $cancel = $db->prepare(
       'DELETE FROM likes
        WHERE liked_post_id=? AND member_id=?'
@@ -123,7 +123,7 @@ if (isset($_REQUEST['like'])) {
 }
 //リツイートボタンクリック時の処理
 if (isset($_REQUEST['rt'])) {
-  if (isset($myRTs) && in_array($_REQUEST['rt'], $myRTs)) {
+  if (isset($myRTs) && in_array($_REQUEST['rt'], $myRTs, true)) {
     // リツイート済の投稿に対する処理
     $rtCancel = $db->prepare(
       'DELETE FROM display
@@ -276,7 +276,7 @@ function makeLink($value)
 
             <a class="like-button" href="index.php?like=<?php echo h($post['post_id']); ?>&page=<?php echo h($page); ?>">
               <!-- ログイン中のユーザーがいいねした投稿のidをチェック -->
-              <?php if (isset($myLikes) && in_array($post['post_id'], $myLikes)) : ?>
+              <?php if (isset($myLikes) && in_array($post['post_id'], $myLikes, true)) : ?>
                 <!-- ログイン中のユーザーがいいねしている場合 -->
                 <img src="images/liked.png" alt="いいねを取消す">
               <?php else : ?>
@@ -289,7 +289,7 @@ function makeLink($value)
 
             <a class="retweet-button" href="index.php?rt=<?php echo h($post['post_id']); ?>">
               <!-- ログイン中のユーザーがリツイートした投稿のidをチェック -->
-              <?php if (isset($myRTs) && in_array($post['post_id'], $myRTs)) :  ?>
+              <?php if (isset($myRTs) && in_array($post['post_id'], $myRTs, true)) :  ?>
                 <!-- ログイン中のユーザーがリツイートしている場合 -->
                 <img src="images/retweeted.png" alt="リツイートを取消す">
               <?php else : ?>
