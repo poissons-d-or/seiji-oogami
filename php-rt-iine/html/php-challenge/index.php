@@ -2,6 +2,7 @@
 session_start();
 require('dbconnect.php');
 require('getlikes.php');
+require('getretweets.php');
 
 if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   // ログインしている
@@ -72,51 +73,6 @@ $posts = $db->prepare(
 );
 $posts->bindParam(1, $start, PDO::PARAM_INT);
 $posts->execute();
-
-// *****ここから課題で追加***** 
-
-// ログインユーザーがリツイートした投稿を取得する
-$retweets = $db->prepare(
-  'SELECT post_id
-   FROM display
-   WHERE display_member_id=? AND is_retweet=TRUE'
-);
-$retweets->execute([$member['id']]);
-while ($rtPost = $retweets->fetch()) {
-  $myRts[] = $rtPost['post_id'];
-}
-
-//リツイートボタンクリック時の処理
-if (isset($_REQUEST['rt'])) {
-  if (isset($myRts) && in_array($_REQUEST['rt'], $myRts, true)) {
-    // リツイート済の投稿に対する処理
-    $rtCancel = $db->prepare(
-      'DELETE FROM display
-       WHERE post_id=? AND display_member_id=? AND is_retweet=TRUE'
-    );
-    $rtCancel->execute([
-      $_REQUEST['rt'],
-      $member['id']
-    ]);
-    // リツイート取消し後、投稿一覧へ遷移する
-    header('Location: index.php');
-    exit();
-  } else {
-    // リツイートしていない投稿に対する処理
-    $retweeted = $db->prepare(
-      'INSERT INTO display
-       SET post_id=?, display_member_id=?, is_retweet=TRUE, display_created=NOW();'
-    );
-    $retweeted->execute([
-      $_REQUEST['rt'],
-      $member['id']
-    ]);
-    // リツイートの処理を実行し、投稿一覧へ遷移する
-    header('Location: index.php');
-    exit();
-  }
-}
-// *****ここまで課題で追加*****
 
 // 返信の場合
 if (isset($_REQUEST['res'])) {
@@ -252,7 +208,7 @@ function makeLink($value)
               <?php echo $likeCount['likeCount']; ?>
             </a><!-- /.like-button -->
 
-            <a class="retweet-button" href="index.php?rt=<?php echo h($post['post_id']); ?>">
+            <a class="retweet-button" href="retweet.php?rt=<?php echo h($post['post_id']); ?>&page=<?php echo h($page); ?>">
               <!-- ログイン中のユーザーがリツイートした投稿のidをチェック -->
               <?php if (isset($myRts) && in_array($post['post_id'], $myRts, true)) :  ?>
                 <!-- ログイン中のユーザーがリツイートしている場合 -->

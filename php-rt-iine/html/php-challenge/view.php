@@ -2,6 +2,7 @@
 session_start();
 require('dbconnect.php');
 require('getlikes.php');
+require('getretweets.php');
 
 if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   // ログインしている
@@ -33,18 +34,7 @@ $posts = $db->prepare(
 $posts->execute([$_REQUEST['id']]);
 
 // *****ここから課題で追加***** 
-
-// ログインユーザーがリツイートした投稿を取得する
-$retweets = $db->prepare(
-  'SELECT post_id
-   FROM display
-   WHERE display_member_id=? AND is_retweet=TRUE'
-);
-$retweets->execute([$member['id']]);
-while ($RTedPost = $retweets->fetch()) {
-  $myRTs[] = $RTedPost['post_id'];
-}
-
+/*
 //リツイートボタンクリック時の処理
 if (isset($_REQUEST['rt'])) {
   if (isset($myRTs) && in_array($_REQUEST['rt'], $myRTs)) {
@@ -74,7 +64,7 @@ if (isset($_REQUEST['rt'])) {
     header('Location: view.php?id=' . $_REQUEST['rt']);
     exit();
   }
-}
+}*/
 // *****ここまで課題で追加*****
 
 // htmlspecialcharsのショートカット
@@ -132,7 +122,7 @@ function makeLink($value)
           <?php
           // いいね数の取得
           $likeCounts = $db->prepare(
-            'SELECT COUNT(*) AS likeCNT
+            'SELECT COUNT(*) AS likeCount
              FROM likes
              WHERE liked_post_id=?'
           );
@@ -140,7 +130,7 @@ function makeLink($value)
           $likeCount = $likeCounts->fetch();
           // リツイート数の取得
           $rtCounts = $db->prepare(
-            'SELECT COUNT(*) AS rtCNT
+            'SELECT COUNT(*) AS rtCount
              FROM display
              WHERE post_id=? AND is_retweet=TRUE'
           );
@@ -160,12 +150,12 @@ function makeLink($value)
                 <img src="images/like.png" alt="いいねする">
               <?php endif; ?>
               <!-- いいねされた数を表示 -->
-              <?php echo $likeCount['likeCNT']; ?>
+              <?php echo $likeCount['likeCount']; ?>
             </a><!-- /.like-button -->
 
-            <a class="retweet-button" href="view.php?id=<?php echo h($post['post_id']); ?>&rt=<?php echo h($post['post_id']); ?>">
+            <a class="retweet-button" href="retweet.php?rt=<?php echo h($post['post_id']); ?>">
               <!-- ログイン中のユーザーがリツイートした投稿のidをチェック -->
-              <?php if (isset($myRTs) && in_array($post['post_id'], $myRTs)) :  ?>
+              <?php if (isset($myRts) && in_array($post['post_id'], $myRts)) :  ?>
                 <!-- ログイン中のユーザーがリツイートしている場合 -->
                 <img src="images/retweeted.png" alt="リツイートを取消す">
               <?php else : ?>
@@ -173,7 +163,7 @@ function makeLink($value)
                 <img src="images/retweet.png" alt="リツイートする">
               <?php endif; ?>
               <!-- リツイートされた数を表示 -->
-              <?php echo $rtCount['rtCNT']; ?>
+              <?php echo $rtCount['rtCount']; ?>
             </a><!-- /.retweet-button -->
           </div><!-- /.icons -->
           <!-- *****ここまで課題で追加**** -->
