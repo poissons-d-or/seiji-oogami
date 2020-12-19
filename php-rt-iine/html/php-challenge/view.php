@@ -1,6 +1,7 @@
 <?php
 session_start();
 require('dbconnect.php');
+require('getlikes.php');
 
 if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   // ログインしている
@@ -32,16 +33,7 @@ $posts = $db->prepare(
 $posts->execute([$_REQUEST['id']]);
 
 // *****ここから課題で追加***** 
-// ログインユーザーがいいねした投稿を取得する
-$likes = $db->prepare(
-  'SELECT liked_post_id
-   FROM likes
-   WHERE member_id=?'
-);
-$likes->execute([$member['id']]);
-while ($likedPost = $likes->fetch()) {
-  $myLikes[] = $likedPost['liked_post_id'];
-}
+
 // ログインユーザーがリツイートした投稿を取得する
 $retweets = $db->prepare(
   'SELECT post_id
@@ -52,34 +44,7 @@ $retweets->execute([$member['id']]);
 while ($RTedPost = $retweets->fetch()) {
   $myRTs[] = $RTedPost['post_id'];
 }
-// いいねボタンクリック時の処理
-if (isset($_REQUEST['like'])) {
-  if (isset($myLikes) && in_array($_REQUEST['like'], $myLikes)) { // いいね済みの投稿に対する処理
-    $cancel = $db->prepare(
-      'DELETE FROM likes
-       WHERE liked_post_id=? AND member_id=?'
-    );
-    $cancel->execute([
-      $_REQUEST['like'],
-      $member['id']
-    ]);
-    // いいね取消し後、投稿画面へ戻る
-    header('Location: view.php?id=' . $_REQUEST['like']);
-    exit();
-  } else { // いいねしていない投稿に対する処理
-    $liked = $db->prepare(
-      'INSERT INTO likes
-       SET liked_post_id=?, member_id=?, created_at=NOW()'
-    );
-    $liked->execute([
-      $_REQUEST['like'],
-      $member['id']
-    ]);
-    // いいねの処理を実行し、投稿画面へ戻る
-    header('Location: view.php?id=' . $_REQUEST['like']);
-    exit();
-  }
-}
+
 //リツイートボタンクリック時の処理
 if (isset($_REQUEST['rt'])) {
   if (isset($myRTs) && in_array($_REQUEST['rt'], $myRTs)) {
@@ -185,7 +150,7 @@ function makeLink($value)
           <div class="icons">
             <a href="index.php?res=<?php echo h($post['post_id']); ?>"><img src="images/respond.png" alt="返信する"></a>
 
-            <a class="like-button" href="view.php?id=<?php echo h($post['post_id']); ?>&like=<?php echo h($post['post_id']); ?>">
+            <a class="like-button" href="like.php?like=<?php echo h($post['post_id']); ?>">
               <!-- ログイン中のユーザーがいいねした投稿のidをチェック -->
               <?php if (isset($myLikes) && in_array($post['post_id'], $myLikes)) : ?>
                 <!-- ログイン中のユーザーがいいねしている場合 -->
