@@ -33,40 +33,6 @@ $posts = $db->prepare(
 );
 $posts->execute([$_REQUEST['id']]);
 
-// *****ここから課題で追加***** 
-/*
-//リツイートボタンクリック時の処理
-if (isset($_REQUEST['rt'])) {
-  if (isset($myRTs) && in_array($_REQUEST['rt'], $myRTs)) {
-    // リツイート済の投稿に対する処理
-    $rtCancel = $db->prepare(
-      'DELETE FROM display
-       WHERE post_id=? AND display_member_id=? AND is_retweet=TRUE'
-    );
-    $rtCancel->execute([
-      $_REQUEST['rt'],
-      $member['id']
-    ]);
-    // リツイート取消し後、投稿画面へ戻る
-    header('Location: view.php?id=' . $_REQUEST['rt']);
-    exit();
-  } else {
-    // リツイートしていない投稿に対する処理
-    $retweeted = $db->prepare(
-      'INSERT INTO display
-       SET post_id=?, display_member_id=?, is_retweet=TRUE, display_created=NOW();'
-    );
-    $retweeted->execute([
-      $_REQUEST['rt'],
-      $member['id']
-    ]);
-    // リツイートの処理を実行し、投稿画面へ戻る
-    header('Location: view.php?id=' . $_REQUEST['rt']);
-    exit();
-  }
-}*/
-// *****ここまで課題で追加*****
-
 // htmlspecialcharsのショートカット
 function h($value)
 {
