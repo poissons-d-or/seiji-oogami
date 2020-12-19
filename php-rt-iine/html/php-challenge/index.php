@@ -90,8 +90,8 @@ $retweets = $db->prepare(
    WHERE display_member_id=? AND is_retweet=TRUE'
 );
 $retweets->execute([$member['id']]);
-while ($RTedPost = $retweets->fetch()) {
-  $myRTs[] = $RTedPost['post_id'];
+while ($rtPost = $retweets->fetch()) {
+  $myRts[] = $rtPost['post_id'];
 }
 // いいねボタンクリック時の処理
 if (isset($_REQUEST['like'])) {
@@ -123,7 +123,7 @@ if (isset($_REQUEST['like'])) {
 }
 //リツイートボタンクリック時の処理
 if (isset($_REQUEST['rt'])) {
-  if (isset($myRTs) && in_array($_REQUEST['rt'], $myRTs, true)) {
+  if (isset($myRts) && in_array($_REQUEST['rt'], $myRts, true)) {
     // リツイート済の投稿に対する処理
     $rtCancel = $db->prepare(
       'DELETE FROM display
@@ -256,7 +256,7 @@ function makeLink($value)
           <?php
           // いいね数の取得
           $likeCounts = $db->prepare(
-            'SELECT COUNT(*) AS likeCNT
+            'SELECT COUNT(*) AS likeCount
              FROM likes 
              WHERE liked_post_id=?'
           );
@@ -264,7 +264,7 @@ function makeLink($value)
           $likeCount = $likeCounts->fetch();
           // リツイート数の取得
           $rtCounts = $db->prepare(
-            'SELECT COUNT(*) AS rtCNT
+            'SELECT COUNT(*) AS rtCount
              FROM display 
              WHERE post_id=? AND is_retweet=TRUE'
           );
@@ -284,12 +284,12 @@ function makeLink($value)
                 <img src="images/like.png" alt="いいねする">
               <?php endif; ?>
               <!-- いいねされた数を表示 -->
-              <?php echo $likeCount['likeCNT']; ?>
+              <?php echo $likeCount['likeCount']; ?>
             </a><!-- /.like-button -->
 
             <a class="retweet-button" href="index.php?rt=<?php echo h($post['post_id']); ?>">
               <!-- ログイン中のユーザーがリツイートした投稿のidをチェック -->
-              <?php if (isset($myRTs) && in_array($post['post_id'], $myRTs, true)) :  ?>
+              <?php if (isset($myRts) && in_array($post['post_id'], $myRts, true)) :  ?>
                 <!-- ログイン中のユーザーがリツイートしている場合 -->
                 <img src="images/retweeted.png" alt="リツイートを取消す">
               <?php else : ?>
@@ -297,7 +297,7 @@ function makeLink($value)
                 <img src="images/retweet.png" alt="リツイートする">
               <?php endif; ?>
               <!-- リツイートされた数を表示 -->
-              <?php echo $rtCount['rtCNT']; ?>
+              <?php echo $rtCount['rtCount']; ?>
             </a><!-- /.retweet-button -->
           </div><!-- /.icons -->
           <!-- *****ここまで課題で追加**** -->
