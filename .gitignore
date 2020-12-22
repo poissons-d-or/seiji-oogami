@@ -1,0 +1,11 @@
+.vscode
+.DS_Store
+
+php-rt-iine/html/php-challenge/member_picture/*
+!php-rt-iine/html/php-challenge/member_picture/.gitkeep
+php-rt-iine/html/php-practice
+php-rt-iine/.devcontainer
+
+php-rt-iine/mysql5.7/mysql
+php-rt-iine/mysql5.7/mysqlvolume/*
+!php-rt-iine/mysql5.7/mysqlvolume/.gitkeep
